@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import useLocalStorage from '../../Hooks/useLocalStorage';
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const [emails, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
+  const [userEmail, setUserEmail] = useLocalStorage('user', {});
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const emailValue = event.target.value;
@@ -23,6 +25,10 @@ function Login() {
     setIsValidPassword(isValid);
   };
 
+  const handleSubmit = () => {
+    setUserEmail({ email: emails });
+  };
+
   return (
     <form>
       <label htmlFor="email">
@@ -32,7 +38,7 @@ function Login() {
           type="text"
           name="email"
           id="email"
-          value={ email }
+          value={ emails }
         />
       </label>
       <label htmlFor="password">
@@ -46,6 +52,7 @@ function Login() {
         />
       </label>
       <button
+        onClick={ handleSubmit }
         disabled={ !isValidEmail || !isValidPassword }
         data-testid="login-submit-btn"
         type="submit"
