@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 
 function Login() {
@@ -6,7 +7,8 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
-  const [userEmail, setUserEmail] = useLocalStorage('user', {});
+  const [userEmail, setUserEmail] = useLocalStorage('user');
+  const navigate = useNavigate();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const emailValue = event.target.value;
@@ -23,10 +25,12 @@ function Login() {
 
     setPassword(passwordValue);
     setIsValidPassword(isValid);
+    setUserEmail({ email: emails });
   };
 
-  const handleSubmit = () => {
-    setUserEmail({ email: emails });
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    navigate('/meals');
   };
 
   return (

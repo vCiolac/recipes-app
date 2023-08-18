@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 
 type UseLocalStorageResult = [string,
-  React.Dispatch<React.SetStateAction<object | string>>];
+  React.Dispatch<React.SetStateAction<object | null>>];
 
-function useLocalStorage(key: string, initialValue: object): UseLocalStorageResult {
+function useLocalStorage(
+  key: string,
+  initialValue?: object | null,
+): UseLocalStorageResult {
   const [localStorageValue, setLocalStorageValue] = useState(() => {
     const storedValue = localStorage.getItem(key);
     try {
@@ -14,7 +17,9 @@ function useLocalStorage(key: string, initialValue: object): UseLocalStorageResu
   });
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(localStorageValue));
+    if (localStorageValue) {
+      localStorage.setItem(key, JSON.stringify(localStorageValue));
+    }
   }, [key, localStorageValue]);
 
   return [localStorageValue, setLocalStorageValue];
