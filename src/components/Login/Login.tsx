@@ -1,23 +1,69 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useLocalStorage from '../../Hooks/useLocalStorage';
+
 function Login() {
+  const [emails, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidPassword, setIsValidPassword] = useState(false);
+  const [userEmail, setUserEmail] = useLocalStorage('user');
+  const navigate = useNavigate();
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const emailValue = event.target.value;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const isValid = emailRegex.test(emailValue);
+
+    setEmail(emailValue);
+    setIsValidEmail(isValid);
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const passwordValue = event.target.value;
+    const isValid = passwordValue.length > 6;
+
+    setPassword(passwordValue);
+    setIsValidPassword(isValid);
+    setUserEmail({ email: emails });
+  };
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    navigate('/meals');
+  };
+
   return (
     <form>
       <label htmlFor="email">
         <input
+          onChange={ handleEmailChange }
           data-testid="email-input"
           type="text"
           name="email"
           id="email"
+          value={ emails }
         />
       </label>
       <label htmlFor="password">
         <input
+          onChange={ handlePasswordChange }
           data-testid="password-input"
           type="password"
           name="password"
           id="password"
+          value={ password }
         />
       </label>
-      <button data-testid="login-submit-btn" type="submit">Entrar</button>
+      <button
+        onClick={ handleSubmit }
+        disabled={ !isValidEmail || !isValidPassword }
+        data-testid="login-submit-btn"
+        type="submit"
+      >
+        Entrar
+
+      </button>
     </form>
   );
 }
