@@ -1,19 +1,19 @@
 import Header from '../../components/Header/Header';
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
-import plateIcon from '../../images/icone-prato.png';
+import drinkIcon from '../../images/drinkIcon.svg';
 
-function Meals() {
+function Drinks() {
   return (
     <div>
       <Header
-        title="Meals"
+        title="Drinks"
         searchIcon={ searchIcon }
         profileIcon={ profileIcon }
-        iconTitle={ plateIcon }
+        iconTitle={ drinkIcon }
       />
     </div>
   );
 }
 
-export default Meals;
+export default Drinks;
