@@ -1,16 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
 import App from '../App';
+import { renderWithRouter } from '../utils/renderWithRouter';
 
 describe('Testando a tela de login', () => {
   test('Testa se os inputs de email e senha estão presentes na tela junto com o botão de entrar.', async () => {
-    // Este arquivo pode ser modificado ou deletado sem problemas
-    render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>,
-    );
+    renderWithRouter(<App />);
 
     const emailInput = screen.getByRole('textbox');
     const passwordInput = screen.getByTestId('password-input');
