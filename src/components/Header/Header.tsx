@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import recipeAppIcon from '../../images/ícone-Recipes-app.png';
 
@@ -12,6 +13,8 @@ function Header({ title,
   searchIcon = undefined,
   profileIcon = undefined,
   iconTitle }: HeaderProps) {
+  const navigate = useNavigate();
+
   const [hideSearch, setHideSearch] = useState(false);
 
   return (
@@ -27,11 +30,14 @@ function Header({ title,
             alt="Lupa de Pesquisa"
           />
         </button>)}
-      {profileIcon && <img
-        data-testid="profile-top-btn"
-        src={ profileIcon }
-        alt="Ícone de Perfil"
-      />}
+      {profileIcon && (
+        <button onClick={ () => navigate('/profile') }>
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="Ícone de Perfil"
+          />
+        </button>)}
       <img src={ iconTitle } alt="Ícone do Título" />
       <h1 data-testid="page-title">{title}</h1>
       {hideSearch
