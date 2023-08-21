@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import drikIcon from '../images/drinkIcon.svg';
-import mealIcon from '../images/mealIcon.svg';
-import style from '../styles/footer.module.css';
+import drikIcon from '../../images/drinkIcon.svg';
+import mealIcon from '../../images/mealIcon.svg';
+import style from '../../styles/footer.module.css';
 
 function Footer() {
   return (
