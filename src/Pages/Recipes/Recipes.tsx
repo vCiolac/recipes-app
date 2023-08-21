@@ -1,10 +1,12 @@
 import { useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Context } from '../../context/context';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer';
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
 import plateIcon from '../../images/icone-prato.png';
+import drinkIcon from '../../images/icone-bebida.png';
 
 function Recipes() {
   const {
@@ -14,7 +16,9 @@ function Recipes() {
     loadingDrink,
   } = useContext(Context);
 
-  const [isMeal, setRecipeType] = useState(true);
+  const location = useLocation();
+
+  const [isMeal, setRecipeType] = useState(location.pathname === '/meals');
 
   if (loadingMeals || loadingDrink) {
     return <div>Loading...</div>;
@@ -32,6 +36,7 @@ function Recipes() {
 
   const twelveRecipes = getTwelveRecipes();
   const headerTitle = isMeal ? 'Meals' : 'Drinks';
+  const iconTitle = isMeal ? plateIcon : drinkIcon;
 
   return (
     <div>
@@ -39,9 +44,8 @@ function Recipes() {
         title={ headerTitle }
         searchIcon={ searchIcon }
         profileIcon={ profileIcon }
-        iconTitle={ plateIcon }
+        iconTitle={ iconTitle }
       />
-      <h1>Recipes</h1>
       <div className="cards">
         {twelveRecipes.map((recipe, index) => (
           <div
