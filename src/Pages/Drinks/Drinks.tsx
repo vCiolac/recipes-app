@@ -1,12 +1,12 @@
 import Footer from '../../components/Footer';
 
-function Meals() {
+function Drinks() {
   return (
     <>
-      <div>Meals</div>
+      <div>Drinks</div>
       <Footer />
     </>
   );
 }
 
-export default Meals;
+export default Drinks;
