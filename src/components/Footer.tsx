@@ -3,13 +3,17 @@ import drikIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import style from '../styles/footer.module.css';
 
-function Footer() {
+type RecipeTypeSelectorProps = {
+  setRecipeType: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function Footer({ setRecipeType }: RecipeTypeSelectorProps) {
   return (
     <footer data-testid="footer" className={ style.footer }>
-      <NavLink to="/meals">
+      <NavLink to="/meals" onClick={ () => setRecipeType(true) }>
         <img src={ mealIcon } alt="meal" data-testid="meals-bottom-btn" />
       </NavLink>
-      <NavLink to="/drinks">
+      <NavLink to="/drinks" onClick={ () => setRecipeType(false) }>
         <img src={ drikIcon } alt="drink" data-testid="drinks-bottom-btn" />
       </NavLink>
 
