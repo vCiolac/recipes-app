@@ -57,20 +57,33 @@ export type DrinksType = {
 export function useFetchDrinks() {
   const [drinkInf, setDrinkInf] = useState<DrinksType[]>([]);
   const [loadingDrink, setloadingDrink] = useState(true);
-  async function fetchApi() {
+  const [drinksCategories, setDrinksCategories] = useState<string[]>([]);
+
+  async function fetchCategories() {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    const data = await response.json();
+    if (data && data.drinks) {
+      const categories = data.drinks.map((drink: any) => drink.strCategory);
+      setDrinksCategories(categories);
+    }
+  }
+
+  async function fetchDrinks() {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const drinksData = await response.json();
-    return drinksData;
+    if (drinksData && drinksData.drinks) {
+      setDrinkInf(drinksData.drinks);
+    }
   }
+
   useEffect(() => {
-    const dataFetch = async () => {
+    async function fetchData() {
       setloadingDrink(true);
-      const responseAPI = await fetchApi();
-      console.log(responseAPI);
-      if (responseAPI) setDrinkInf(responseAPI.drinks);
+      await Promise.all([fetchCategories(), fetchDrinks()]);
       setloadingDrink(false);
-    };
-    dataFetch();
+    }
+    fetchData();
   }, []);
-  return { drinkInf, loadingDrink };
+
+  return { drinkInf, loadingDrink, drinksCategories };
 }

@@ -58,20 +58,33 @@ export type MealType = {
 export function useFetchMeals() {
   const [mealInf, setMealInf] = useState<MealType[]>([]);
   const [loadingMeals, setloadingMeals] = useState(true);
-  async function fetchApi() {
+  const [mealCategories, setMealCategories] = useState<string[]>([]);
+
+  async function fetchCategories() {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+    const data = await response.json();
+    if (data && data.meals) {
+      const categories = data.meals.map((meal: any) => meal.strCategory);
+      setMealCategories(categories);
+    }
+  }
+
+  async function fetchMeals() {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const mealsData = await response.json();
-    return mealsData;
+    if (mealsData && mealsData.meals) {
+      setMealInf(mealsData.meals);
+    }
   }
+
   useEffect(() => {
-    const dataFetch = async () => {
+    async function fetchData() {
       setloadingMeals(true);
-      const responseAPI = await fetchApi();
-      console.log(responseAPI);
-      if (responseAPI) setMealInf(responseAPI.meals);
+      await Promise.all([fetchCategories(), fetchMeals()]);
       setloadingMeals(false);
-    };
-    dataFetch();
+    }
+    fetchData();
   }, []);
-  return { mealInf, loadingMeals };
+
+  return { mealInf, loadingMeals, mealCategories };
 }

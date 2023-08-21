@@ -7,7 +7,8 @@ export type RecipesContext = {
   drinkInf: DrinksType[];
   loadingMeals: boolean;
   loadingDrink: boolean;
-
+  mealCategories: never[];
+  drinksCategories: never[];
 };
 
 export const Context = createContext({} as RecipesContext);
