@@ -1,18 +1,17 @@
-import Footer from '../../components/Footer';
 import Header from '../../components/Header/Header';
 import profileIcon from '../../images/profileIcon.svg';
+import doneIcon from '../../images/DoneIcon.png';
 
-function Profile() {
+function DoneRecipes() {
   return (
-    <>
+    <div>
       <Header
-        title="Profile"
+        title="Done Recipes"
         profileIcon={ profileIcon }
-        iconTitle={ profileIcon }
+        iconTitle={ doneIcon }
       />
-      <Footer />
-    </>
+    </div>
   );
 }
 
-export default Profile;
+export default DoneRecipes;
