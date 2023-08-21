@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import recipeAppIcon from '../../images/ícone-Recipes-app.png';
+import SearchBar from '../SearchBar/SearchBar';
 
 type HeaderProps = {
   title: string,
@@ -41,7 +42,11 @@ function Header({ title,
       <img src={ iconTitle } alt="Ícone do Título" />
       <h1 data-testid="page-title">{title}</h1>
       {hideSearch
-      && <input type="text" placeholder="Search" data-testid="search-input" />}
+      && (
+        <div>
+          <SearchBar />
+        </div>
+      )}
     </header>
   );
 }
