@@ -2,13 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import recipeAppIcon from '../../images/ícone-Recipes-app.png';
 import SearchBar from '../SearchBar/SearchBar';
-
-type HeaderProps = {
-  title: string,
-  searchIcon?: string,
-  profileIcon?: string
-  iconTitle: string
-};
+import { HeaderProps } from '../../types';
 
 function Header({ title,
   searchIcon = undefined,
