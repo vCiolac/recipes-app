@@ -1,15 +1,17 @@
+import Footer from '../../components/Footer';
 import Header from '../../components/Header/Header';
 import profileIcon from '../../images/profileIcon.svg';
 
 function Profile() {
   return (
-    <div>
+    <>
       <Header
         title="Profile"
         profileIcon={ profileIcon }
         iconTitle={ profileIcon }
       />
-    </div>
+      <Footer />
+    </>
   );
 }
 
