@@ -57,9 +57,15 @@ export type DrinksType = {
 export function useFetchDrinks() {
   const [drinkInf, setDrinkInf] = useState<DrinksType[]>([]);
   const [loadingDrink, setloadingDrink] = useState(true);
+  const [drinksCategories, setCategories] = useState<string[]>([]);
+
   async function fetchApi() {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const drinksData = await response.json();
+    if (drinksData && drinksData.drinks) {
+      const catego = drinksData.drinks.map((drink: DrinksType) => drink.strCategory);
+      setCategories(catego);
+    }
     return drinksData;
   }
   useEffect(() => {
@@ -72,5 +78,5 @@ export function useFetchDrinks() {
     };
     dataFetch();
   }, []);
-  return { drinkInf, loadingDrink };
+  return { drinkInf, loadingDrink, drinksCategories };
 }

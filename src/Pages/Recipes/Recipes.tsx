@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Context } from '../../context/context';
 import Header from '../../components/Header/Header';
@@ -14,11 +14,18 @@ function Recipes() {
     loadingMeals,
     drinkInf,
     loadingDrink,
+    mealCategories,
+    drinksCategories,
   } = useContext(Context);
 
   const location = useLocation();
 
   const [isMeal, setRecipeType] = useState(location.pathname === '/meals');
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    return setCategories(isMeal ? mealCategories : drinksCategories);
+  }, [isMeal, mealCategories, drinksCategories]);
 
   if (loadingMeals || loadingDrink) {
     return <div>Loading...</div>;
@@ -38,6 +45,12 @@ function Recipes() {
   const headerTitle = isMeal ? 'Meals' : 'Drinks';
   const iconTitle = isMeal ? plateIcon : drinkIcon;
 
+  const getFiveCategories = () => {
+    return categories.slice(0, 5);
+  };
+
+  const fiveCategories = getFiveCategories();
+
   return (
     <div>
       <Header
@@ -46,6 +59,17 @@ function Recipes() {
         profileIcon={ profileIcon }
         iconTitle={ iconTitle }
       />
+      <div>
+        {fiveCategories.map((category, index) => (
+          <button
+            key={ index }
+            data-testid={ `${category}-category-filter` }
+            onClick={ () => {} }
+          >
+            {category}
+          </button>
+        ))}
+      </div>
       <div className="cards">
         {twelveRecipes.map((recipe, index) => (
           <div

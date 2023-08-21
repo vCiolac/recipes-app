@@ -58,9 +58,15 @@ export type MealType = {
 export function useFetchMeals() {
   const [mealInf, setMealInf] = useState<MealType[]>([]);
   const [loadingMeals, setloadingMeals] = useState(true);
+  const [mealCategories, setCategories] = useState<string[]>([]);
+
   async function fetchApi() {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const mealsData = await response.json();
+    if (mealsData && mealsData.meals) {
+      const catego = mealsData.meals.map((meal: MealType) => meal.strCategory);
+      setCategories(catego);
+    }
     return mealsData;
   }
   useEffect(() => {
@@ -73,5 +79,5 @@ export function useFetchMeals() {
     };
     dataFetch();
   }, []);
-  return { mealInf, loadingMeals };
+  return { mealInf, loadingMeals, mealCategories };
 }

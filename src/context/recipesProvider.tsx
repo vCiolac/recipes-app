@@ -6,11 +6,19 @@ type RecipesProps = {
   children: React.ReactNode;
 };
 function RecipesProvider({ children }: RecipesProps) {
-  const { mealInf, loadingMeals } = useFetchMeals();
-  const { drinkInf, loadingDrink } = useFetchDrinks();
+  const { mealInf, loadingMeals, mealCategories } = useFetchMeals();
+  const { drinkInf, loadingDrink, drinksCategories } = useFetchDrinks();
 
   return (
-    <Context.Provider value={ { mealInf, loadingMeals, drinkInf, loadingDrink } }>
+    <Context.Provider
+      value={ {
+        mealInf,
+        loadingMeals,
+        drinkInf,
+        loadingDrink,
+        mealCategories,
+        drinksCategories } }
+    >
       {children}
     </Context.Provider>
   );
