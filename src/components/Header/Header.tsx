@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import recipeAppIcon from '../../images/ícone-Recipes-app.png';
 
 type HeaderProps = {
@@ -11,6 +12,8 @@ function Header({ title,
   searchIcon = undefined,
   profileIcon = undefined,
   iconTitle }: HeaderProps) {
+  const navigate = useNavigate();
+
   return (
     <header>
       <img src={ recipeAppIcon } alt="Ícone Recipes App" />
@@ -20,11 +23,14 @@ function Header({ title,
         src={ searchIcon }
         alt="Lupa de Pesquisa"
       />}
-      {profileIcon && <img
-        data-testid="profile-top-btn"
-        src={ profileIcon }
-        alt="Ícone de Perfil"
-      />}
+      {profileIcon && (
+        <button onClick={ () => navigate('/profile') }>
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="Ícone de Perfil"
+          />
+        </button>)}
       <img src={ iconTitle } alt="Ícone do Título" />
       <h1 data-testid="page-title">{title}</h1>
     </header>
