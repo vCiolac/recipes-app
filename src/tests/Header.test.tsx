@@ -1,12 +1,12 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Meals from '../Pages/Meals/Meals';
 import { renderWithRouter } from '../utils/renderWithRouter';
 import App from '../App';
+import Recipes from '../Pages/Recipes/Recipes';
 
 describe('Testes referentes ao Header', () => {
   test('Testa se o header possui o nome Recipes App e seu respectivo ícone de imagem.', () => {
-    renderWithRouter(<Meals />);
+    renderWithRouter(<Recipes />);
 
     const appTitle = screen.getByRole('heading', { name: /recipes app/i });
     expect(appTitle).toBeInTheDocument();
