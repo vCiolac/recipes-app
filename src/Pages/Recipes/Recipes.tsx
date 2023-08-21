@@ -2,11 +2,11 @@ import { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Context } from '../../context/context';
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer';
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
 import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
+import Footer from '../../components/Footer/Footer';
 
 function Recipes() {
   const {
