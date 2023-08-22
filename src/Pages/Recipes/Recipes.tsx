@@ -7,7 +7,6 @@ import profileIcon from '../../images/profileIcon.svg';
 import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
-import { useFetchCategories } from '../../Hooks/useFetchCategories';
 
 function Recipes() {
   const {
@@ -17,9 +16,10 @@ function Recipes() {
     loadingDrink,
     mealCategories,
     drinksCategories,
-    mealFilterCategories,
     loadingCategories,
+    mealFilterCategories,
     drinksFilterCategories,
+    setButtonName,
   } = useContext(Context);
 
   const location = useLocation();
@@ -56,7 +56,8 @@ function Recipes() {
   const fiveCategories = getFiveCategories();
 
   const handleCategories = (category: string) => {
-    useFetchCategories(category);
+    setButtonName(category);
+    console.log('fui chamado');
   };
 
   return (

@@ -13,6 +13,7 @@ function RecipesProvider({ children }: RecipesProps) {
     mealFilterCategories,
     loadingCategories,
     drinksFilterCategories,
+    setButtonName,
   } = useFetchCategories();
 
   return (
@@ -27,6 +28,7 @@ function RecipesProvider({ children }: RecipesProps) {
         mealFilterCategories,
         loadingCategories,
         drinksFilterCategories,
+        setButtonName,
       } }
     >
       {children}

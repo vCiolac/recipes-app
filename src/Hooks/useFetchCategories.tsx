@@ -12,8 +12,9 @@ export type DrinksCategoriesType = {
   idDrinks: string;
 };
 
-export function useFetchCategories(buttonName?: string) {
+export function useFetchCategories() {
   const [loadingCategories, setloadingCategories] = useState(true);
+  const [buttonName, setButtonName] = useState('');
   const [
     mealFilterCategories,
     setMealFilterCategories,
@@ -26,6 +27,7 @@ export function useFetchCategories(buttonName?: string) {
   async function fetchMealCategories() {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonName}`);
     const data = await response.json();
+    console.log(data);
     if (data && data.meals) {
       const categories = data.meals.map((meal: any) => meal.strCategory);
       setMealFilterCategories(categories);
@@ -35,6 +37,7 @@ export function useFetchCategories(buttonName?: string) {
   async function fetchDrinksCategories() {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${buttonName}`);
     const data = await response.json();
+    console.log(data);
     if (data && data.drinks) {
       const categories = data.drinks.map((drink: any) => drink.strCategory);
       setDrinksFilterCategories(categories);
@@ -48,7 +51,11 @@ export function useFetchCategories(buttonName?: string) {
       setloadingCategories(false);
     }
     fetchData();
-  }, []);
+  }, [buttonName]);
 
-  return { mealFilterCategories, loadingCategories, drinksFilterCategories };
+  return {
+    mealFilterCategories,
+    loadingCategories,
+    drinksFilterCategories,
+    setButtonName };
 }
