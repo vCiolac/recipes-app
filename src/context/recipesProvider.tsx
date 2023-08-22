@@ -1,3 +1,4 @@
+import { useFetchCategories } from '../Hooks/useFetchCategories';
 import { useFetchDrinks } from '../Hooks/useFetchDrinks';
 import { useFetchMeals } from '../Hooks/useFetchMeals';
 import { Context } from './context';
@@ -8,6 +9,11 @@ type RecipesProps = {
 function RecipesProvider({ children }: RecipesProps) {
   const { mealInf, loadingMeals, mealCategories } = useFetchMeals();
   const { drinkInf, loadingDrink, drinksCategories } = useFetchDrinks();
+  const {
+    mealFilterCategories,
+    loadingCategories,
+    drinksFilterCategories,
+  } = useFetchCategories();
 
   return (
     <Context.Provider
@@ -17,7 +23,11 @@ function RecipesProvider({ children }: RecipesProps) {
         drinkInf,
         loadingDrink,
         mealCategories,
-        drinksCategories } }
+        drinksCategories,
+        mealFilterCategories,
+        loadingCategories,
+        drinksFilterCategories,
+      } }
     >
       {children}
     </Context.Provider>

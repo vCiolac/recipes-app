@@ -7,6 +7,7 @@ import profileIcon from '../../images/profileIcon.svg';
 import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
+import { useFetchCategories } from '../../Hooks/useFetchCategories';
 
 function Recipes() {
   const {
@@ -16,6 +17,9 @@ function Recipes() {
     loadingDrink,
     mealCategories,
     drinksCategories,
+    mealFilterCategories,
+    loadingCategories,
+    drinksFilterCategories,
   } = useContext(Context);
 
   const location = useLocation();
@@ -51,6 +55,10 @@ function Recipes() {
 
   const fiveCategories = getFiveCategories();
 
+  const handleCategories = (category: string) => {
+    useFetchCategories(category);
+  };
+
   return (
     <div>
       <Header
@@ -64,7 +72,7 @@ function Recipes() {
           <button
             key={ index }
             data-testid={ `${category}-category-filter` }
-            onClick={ () => {} }
+            onClick={ () => handleCategories(category) }
           >
             {category}
           </button>

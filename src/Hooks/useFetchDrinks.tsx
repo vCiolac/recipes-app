@@ -57,7 +57,7 @@ export type DrinksType = {
 export function useFetchDrinks() {
   const [drinkInf, setDrinkInf] = useState<DrinksType[]>([]);
   const [loadingDrink, setloadingDrink] = useState(true);
-  const [drinksCategories, setDrinksCategories] = useState<string[]>([]);
+  const [drinksCategories, setDrinksCategories] = useState<never[]>([]);
 
   async function fetchCategories() {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
