@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { DrinksType } from './useFetchDrinks';
-import { MealType } from './useFetchMeals';
 
 export type MealCategoriesType = {
   strMeal: string,
@@ -28,26 +26,28 @@ export function useFetchCategories() {
 
   async function fetchMealCategories() {
     if (buttonName) {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonName}`);
-      const data = await response.json();
-      console.log(data);
-      if (data && data.meals) {
-        const categories = data.meals.map((meal: MealType) => meal.strCategory);
-        setMealFilterCategories(categories);
+      try {
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonName}`);
+        const data = await response.json();
+        if (data && data.meals) {
+          setMealFilterCategories(data.meals);
+        }
+      } catch (error) {
+        setMealFilterCategories([]);
       }
     }
   }
 
   async function fetchDrinksCategories() {
     if (buttonName) {
-      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${buttonName}`);
-      const data = await response.json();
-      console.log(data);
-      if (data && data.drinks) {
-        const categories = data
-          .drinks
-          .map((drink: DrinksType) => drink.strCategory);
-        setDrinksFilterCategories(categories);
+      try {
+        const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${buttonName}`);
+        const data = await response.json();
+        if (data && data.drinks) {
+          setDrinksFilterCategories(data.drinks);
+        }
+      } catch (error) {
+        setDrinksFilterCategories([]);
       }
     }
   }
