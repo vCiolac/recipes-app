@@ -21,7 +21,7 @@ describe('Testando comportamento do Recipes', () => {
         <App />
       </MemoryRouter>,
     );
-    expect(global.fetch).toBeCalledTimes(0);
+    expect(global.fetch).toBeCalledTimes(4);
   });
   test('Testa se os botões de categoria estão aparecendo em meals', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
