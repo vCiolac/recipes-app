@@ -13,6 +13,7 @@ export type RecipesContext = {
   mealFilterCategories: MealCategoriesType[];
   loadingCategories: boolean;
   drinksFilterCategories: DrinksCategoriesType[];
+  buttonName: string;
   setButtonName: React.Dispatch<React.SetStateAction<string>>;
 };
 

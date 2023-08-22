@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { DrinksType } from './useFetchDrinks';
+import { MealType } from './useFetchMeals';
 
 export type MealCategoriesType = {
   strMeal: string,
@@ -25,29 +27,40 @@ export function useFetchCategories() {
   ] = useState<DrinksCategoriesType[]>([]);
 
   async function fetchMealCategories() {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonName}`);
-    const data = await response.json();
-    console.log(data);
-    if (data && data.meals) {
-      const categories = data.meals.map((meal: any) => meal.strCategory);
-      setMealFilterCategories(categories);
+    if (buttonName) {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonName}`);
+      const data = await response.json();
+      console.log(data);
+      if (data && data.meals) {
+        const categories = data.meals.map((meal: MealType) => meal.strCategory);
+        setMealFilterCategories(categories);
+      }
     }
   }
 
   async function fetchDrinksCategories() {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${buttonName}`);
-    const data = await response.json();
-    console.log(data);
-    if (data && data.drinks) {
-      const categories = data.drinks.map((drink: any) => drink.strCategory);
-      setDrinksFilterCategories(categories);
+    if (buttonName) {
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${buttonName}`);
+      const data = await response.json();
+      console.log(data);
+      if (data && data.drinks) {
+        const categories = data
+          .drinks
+          .map((drink: DrinksType) => drink.strCategory);
+        setDrinksFilterCategories(categories);
+      }
     }
   }
 
   useEffect(() => {
     async function fetchData() {
       setloadingCategories(true);
-      await Promise.all([fetchMealCategories(), fetchDrinksCategories()]);
+      if (buttonName) {
+        await Promise.all([fetchMealCategories(), fetchDrinksCategories()]);
+      } else {
+        setMealFilterCategories([]);
+        setDrinksFilterCategories([]);
+      }
       setloadingCategories(false);
     }
     fetchData();
@@ -57,5 +70,7 @@ export function useFetchCategories() {
     mealFilterCategories,
     loadingCategories,
     drinksFilterCategories,
-    setButtonName };
+    setButtonName,
+    buttonName,
+  };
 }

@@ -63,7 +63,7 @@ export function useFetchDrinks() {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     const data = await response.json();
     if (data && data.drinks) {
-      const categories = data.drinks.map((drink: any) => drink.strCategory);
+      const categories = data.drinks.map((drink: DrinksType) => drink.strCategory);
       setDrinksCategories(categories);
     }
   }

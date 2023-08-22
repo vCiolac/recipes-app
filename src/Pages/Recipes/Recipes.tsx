@@ -16,10 +16,8 @@ function Recipes() {
     loadingDrink,
     mealCategories,
     drinksCategories,
-    loadingCategories,
-    mealFilterCategories,
-    drinksFilterCategories,
     setButtonName,
+    buttonName,
   } = useContext(Context);
 
   const location = useLocation();
@@ -28,21 +26,21 @@ function Recipes() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    return setCategories(isMeal ? mealCategories : drinksCategories);
+    setCategories(isMeal ? mealCategories : drinksCategories);
   }, [isMeal, mealCategories, drinksCategories]);
 
-  if (loadingMeals || loadingDrink) {
-    return <div>Loading...</div>;
-  }
-
   const getTwelveRecipes = () => {
-    if (isMeal && mealInf && mealInf.length > 0) {
-      return mealInf.slice(0, 12);
+    let recipesToDisplay = isMeal ? mealInf : drinkInf;
+
+    if (buttonName) {
+      recipesToDisplay = recipesToDisplay.filter(
+        (recipe) => ('strCategory' in recipe) && recipe.strCategory === buttonName,
+      );
     }
-    if (!isMeal && drinkInf && drinkInf.length > 0) {
-      return drinkInf.slice(0, 12);
+    if (recipesToDisplay.length >= 12) {
+      return recipesToDisplay.slice(0, 12);
     }
-    return [];
+    return recipesToDisplay;
   };
 
   const twelveRecipes = getTwelveRecipes();
@@ -57,8 +55,11 @@ function Recipes() {
 
   const handleCategories = (category: string) => {
     setButtonName(category);
-    console.log('fui chamado');
   };
+
+  if (loadingMeals || loadingDrink) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -86,18 +87,14 @@ function Recipes() {
             data-testid={ `${index}-recipe-card` }
             className="recipe-card"
           >
-            <span
-              data-testid={ `${index}-card-name` }
-            >
+            <span data-testid={ `${index}-card-name` }>
               {('strMeal' in recipe) ? recipe.strMeal : recipe.strDrink}
             </span>
             <img
               src={ ('strMealThumb' in recipe)
                 ? recipe.strMealThumb
                 : recipe.strDrinkThumb }
-              alt={ ('strMeal' in recipe)
-                ? recipe.strMeal
-                : recipe.strDrink }
+              alt={ ('strMeal' in recipe) ? recipe.strMeal : recipe.strDrink }
               data-testid={ `${index}-card-img` }
             />
           </div>
