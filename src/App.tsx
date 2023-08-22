@@ -13,10 +13,10 @@ function App() {
       <Route path="/" Component={ Login } />
       <Route path="/meals" Component={ Recipes } />
       <Route path="/drinks" Component={ Recipes } />
-      <Route path="/meals/:id-da-receita" Component={ Recipes } />
-      <Route path="/drinks/:id-da-receita" Component={ Recipes } />
-      <Route path="/meals/:id-da-receita/in-progress" Component={ Recipes } />
-      <Route path="/drinks/:id-da-receita/in-progress" Component={ Recipes } />
+      <Route path="/meals/:id" Component={ Recipes } />
+      <Route path="/drinks/:id" Component={ Recipes } />
+      <Route path="/meals/:id/inprogress" Component={ Recipes } />
+      <Route path="/drinks/:id/inprogress" Component={ Recipes } />
       <Route path="/profile" Component={ Profile } />
       <Route path="/done-recipes" Component={ DoneRecipes } />
       <Route path="/favorite-recipes" Component={ FavoriteRecipes } />
