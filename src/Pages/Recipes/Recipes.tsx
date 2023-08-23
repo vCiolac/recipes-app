@@ -23,6 +23,7 @@ function Recipes() {
     loadingCategories,
     setDetailId,
     filteredRecipes,
+    setDetailId,
   } = useContext(Context);
 
   const location = useLocation();
@@ -111,7 +112,7 @@ function Recipes() {
             </span>
             <NavLink
               to={ isMeal ? `/meals/${recipe.idMeal} ` : `/drinks/${recipe.idDrink}` }
-              onClick={ () => setDetailId(isMeal ? recipe.idMeal : recipe.idDrink) }
+              onClick={ () => setDetailId(isMeal ? recipe.idMeal : recipe.idDrink) } 
             >
               <img
                 src={ recipe.strMealThumb || recipe.strDrinkThumb }

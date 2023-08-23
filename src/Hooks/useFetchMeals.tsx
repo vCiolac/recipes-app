@@ -34,3 +34,5 @@ export function useFetchMeals() {
 
   return { mealInf, loadingMeals, mealCategories };
 }
+
+

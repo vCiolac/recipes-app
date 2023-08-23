@@ -21,6 +21,11 @@ export type RecipesContext = {
   setDetailId: React.Dispatch<React.SetStateAction<string>>;
   handleFilteredRecipes: (recipe: MealType[] | DrinksType[]) => void;
   filteredRecipes: MealType[] | DrinksType[]
+  mealDetails: MealType[];
+  drinksDetails: DrinksType[];
+  loadingDetails: boolean;
+  detailId: string;
+  setDetailId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const Context = createContext({} as RecipesContext);
