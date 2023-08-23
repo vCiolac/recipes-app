@@ -59,7 +59,7 @@ function Recipes() {
   const fiveCategories = getFiveCategories();
 
   const handleCategories = (category: string) => {
-    if(buttonName === category){
+    if (buttonName === category) {
       return setButtonName('');
     }
     setButtonName(category);
