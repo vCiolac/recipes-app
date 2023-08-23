@@ -21,6 +21,7 @@ function Recipes() {
     mealFilterCategories,
     drinksFilterCategories,
     loadingCategories,
+    filteredRecipes,
   } = useContext(Context);
 
   const location = useLocation();
@@ -48,7 +49,8 @@ function Recipes() {
     return recipesToDisplay;
   };
 
-  const twelveRecipes = getTwelveRecipes();
+  const twelveRecipes = filteredRecipes.length > 1
+    ? filteredRecipes.slice(0, 12) : getTwelveRecipes();
   const headerTitle = isMeal ? 'Meals' : 'Drinks';
   const iconTitle = isMeal ? plateIcon : drinkIcon;
 

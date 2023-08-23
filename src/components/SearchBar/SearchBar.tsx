@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DrinksType, MealType, RadioType } from '../../types';
+import { Context } from '../../context/context';
 
 function SearchBar() {
+  const { handleFilteredRecipes, filteredRecipes } = useContext(Context);
   const [searchInput, setSearchInput] = useState('');
   const [radio, setRadio] = useState<RadioType>('ingredient');
-  const [searchMealsResults, setSearchMealsResults] = useState<MealType[]>([]);
-  const [searchDrinksResults, setSearchDrinksResults] = useState<DrinksType[]>([]);
   const location = useLocation();
   const navigate = useNavigate();
   const ingredientString = 'ingredient';
@@ -19,19 +19,19 @@ function SearchBar() {
         const ingredientURL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`;
         const response = await fetch(ingredientURL);
         const data = await response.json();
-        setSearchMealsResults(data.meals);
+        return data.meals;
       }
       if (radio === nameString) {
         const nameURL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`;
         const response = await fetch(nameURL);
         const data = await response.json();
-        setSearchMealsResults(data.meals);
+        return data.meals;
       }
       if (radio === firstLetterString) {
         const firstLetterURL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`;
         const response = await fetch(firstLetterURL);
         const data = await response.json();
-        setSearchMealsResults(data.meals);
+        return data.meals;
       }
       setSearchInput('');
     } catch (error) {
@@ -45,19 +45,19 @@ function SearchBar() {
         const ingredientURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`;
         const response = await fetch(ingredientURL);
         const data = await response.json();
-        setSearchDrinksResults(data.drinks);
+        return data.drinks;
       }
       if (radio === nameString) {
         const nameURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`;
         const response = await fetch(nameURL);
         const data = await response.json();
-        setSearchDrinksResults(data.drinks);
+        return data.drinks;
       }
       if (radio === firstLetterString) {
         const firstLetterURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`;
         const response = await fetch(firstLetterURL);
         const data = await response.json();
-        setSearchDrinksResults(data.drinks);
+        return data.drinks;
       }
       setSearchInput('');
     } catch (error) {
@@ -65,23 +65,33 @@ function SearchBar() {
     }
   };
 
-  const searchByPathName = () => {
+  const searchByPathName = async () => {
     if (location.pathname === '/meals') {
-      searchFoods();
+      const meals = await searchFoods();
+      if (!meals) {
+        return window.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      handleFilteredRecipes(meals);
     }
     if (location.pathname === '/drinks') {
-      searchDrinks();
+      const drinks = await searchDrinks();
+      if (!drinks) {
+        return window.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      handleFilteredRecipes(drinks);
     }
   };
 
   useEffect(() => {
-    if (location.pathname === '/meals' && searchMealsResults.length === 1) {
+    if (location.pathname === '/meals' && filteredRecipes.length === 1) {
+      const searchMealsResults = filteredRecipes as MealType[];
       navigate(`/meals/${searchMealsResults[0].idMeal}`);
     }
-    if (location.pathname === '/drinks' && searchDrinksResults.length === 1) {
+    if (location.pathname === '/drinks' && filteredRecipes.length === 1) {
+      const searchDrinksResults = filteredRecipes as DrinksType[];
       navigate(`/drinks/${searchDrinksResults[0].idDrink}`);
     }
-  }, [navigate, searchMealsResults, location, searchDrinksResults]);
+  }, [navigate, filteredRecipes, location]);
 
   return (
     <div>
