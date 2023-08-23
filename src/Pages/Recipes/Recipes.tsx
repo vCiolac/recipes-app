@@ -7,6 +7,7 @@ import profileIcon from '../../images/profileIcon.svg';
 import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
+import { NavLink } from 'react-router-dom';
 
 function Recipes() {
   const {
@@ -106,11 +107,14 @@ function Recipes() {
             <span data-testid={ `${index}-card-name` }>
               {recipe.strMeal || recipe.strDrink}
             </span>
+            <NavLink
+            to={isMeal ?`/meals/${recipe.idMeal} ` : `/drinks/${recipe.idDrink}`}>
             <img
               src={ recipe.strMealThumb || recipe.strDrinkThumb }
               alt={ recipe.strMeal || recipe.strDrink }
               data-testid={ `${index}-card-img` }
             />
+            </NavLink>
           </div>
         ))}
       </div>
