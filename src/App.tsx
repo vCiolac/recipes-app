@@ -6,6 +6,7 @@ import Profile from './Pages/Profile/Profile';
 import DoneRecipes from './Pages/DoneRecipes/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes/FavoriteRecipes';
 import Recipes from './Pages/Recipes/Recipes';
+import RecipesDetails from './Pages/RecipeDetails/RecipeDetails';
 
 function App() {
   return (
@@ -13,8 +14,8 @@ function App() {
       <Route path="/" Component={ Login } />
       <Route path="/meals" Component={ Recipes } />
       <Route path="/drinks" Component={ Recipes } />
-      <Route path="/meals/:id" Component={ Recipes } />
-      <Route path="/drinks/:id" Component={ Recipes } />
+      <Route path="/meals/:id" Component={ RecipesDetails } />
+      <Route path="/drinks/:id" Component={ RecipesDetails } />
       <Route path="/meals/:id/inprogress" Component={ Recipes } />
       <Route path="/drinks/:id/inprogress" Component={ Recipes } />
       <Route path="/profile" Component={ Profile } />
