@@ -4,13 +4,13 @@ import { MealType } from '../types';
 export function useFetchMeals() {
   const [mealInf, setMealInf] = useState<MealType[]>([]);
   const [loadingMeals, setloadingMeals] = useState(true);
-  const [mealCategories, setMealCategories] = useState<string[]>([]);
+  const [mealCategories, setMealCategories] = useState<never[]>([]);
 
   async function fetchCategories() {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     const data = await response.json();
     if (data && data.meals) {
-      const categories = data.meals.map((meal: any) => meal.strCategory);
+      const categories = data.meals.map((meal: MealType) => meal.strCategory);
       setMealCategories(categories);
     }
   }

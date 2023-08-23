@@ -16,6 +16,11 @@ function Recipes() {
     loadingDrink,
     mealCategories,
     drinksCategories,
+    setButtonName,
+    buttonName,
+    mealFilterCategories,
+    drinksFilterCategories,
+    loadingCategories,
   } = useContext(Context);
 
   const location = useLocation();
@@ -24,21 +29,23 @@ function Recipes() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    return setCategories(isMeal ? mealCategories : drinksCategories);
+    setCategories(isMeal ? mealCategories : drinksCategories);
   }, [isMeal, mealCategories, drinksCategories]);
 
-  if (loadingMeals || loadingDrink) {
-    return <div>Loading...</div>;
-  }
-
   const getTwelveRecipes = () => {
-    if (isMeal && mealInf && mealInf.length > 0) {
-      return mealInf.slice(0, 12);
+    const recipesToDisplay = isMeal ? mealInf : drinkInf;
+
+    if (buttonName) {
+      const newArray = isMeal ? mealFilterCategories : drinksFilterCategories;
+      if (newArray.length >= 12) {
+        return newArray.slice(0, 12);
+      }
+      return newArray;
     }
-    if (!isMeal && drinkInf && drinkInf.length > 0) {
-      return drinkInf.slice(0, 12);
+    if (recipesToDisplay.length >= 12) {
+      return recipesToDisplay.slice(0, 12);
     }
-    return [];
+    return recipesToDisplay;
   };
 
   const twelveRecipes = getTwelveRecipes();
@@ -50,6 +57,14 @@ function Recipes() {
   };
 
   const fiveCategories = getFiveCategories();
+
+  const handleCategories = (category: string) => {
+    setButtonName(category);
+  };
+
+  if (loadingMeals || loadingDrink || loadingCategories) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -64,31 +79,33 @@ function Recipes() {
           <button
             key={ index }
             data-testid={ `${category}-category-filter` }
-            onClick={ () => {} }
+            onClick={ () => handleCategories(category) }
           >
             {category}
           </button>
         ))}
+        <div>
+          <button
+            onClick={ () => setButtonName('') }
+            data-testid="All-category-filter"
+          >
+            All
+          </button>
+        </div>
       </div>
       <div className="cards">
-        {twelveRecipes.map((recipe, index) => (
+        {twelveRecipes.map((recipe: any, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }
             className="recipe-card"
           >
-            <span
-              data-testid={ `${index}-card-name` }
-            >
-              {('strMeal' in recipe) ? recipe.strMeal : recipe.strDrink}
+            <span data-testid={ `${index}-card-name` }>
+              {recipe.strMeal || recipe.strDrink}
             </span>
             <img
-              src={ ('strMealThumb' in recipe)
-                ? recipe.strMealThumb
-                : recipe.strDrinkThumb }
-              alt={ ('strMeal' in recipe)
-                ? recipe.strMeal
-                : recipe.strDrink }
+              src={ recipe.strMealThumb || recipe.strDrinkThumb }
+              alt={ recipe.strMeal || recipe.strDrink }
               data-testid={ `${index}-card-img` }
             />
           </div>
