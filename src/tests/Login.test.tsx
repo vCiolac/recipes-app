@@ -1,7 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import { renderWithRouter } from '../utils/renderWithRouter';
+import renderWithRouter from './helpers/renderWithRouter';
+
 
 describe('Testando a tela de login', () => {
   test('Testa se os inputs de email e senha estão presentes na tela junto com o botão de entrar.', async () => {
