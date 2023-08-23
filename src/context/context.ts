@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { DrinksCategoriesType, MealCategoriesType } from '../Hooks/useFetchCategories';
-import { DrinksType, MealType } from '../types';
+import { MealType, DrinksType } from '../types';
 
 export type RecipesContext = {
   mealInf: MealType[];
@@ -19,6 +19,8 @@ export type RecipesContext = {
   loadingDetails: boolean;
   detailId: string;
   setDetailId: React.Dispatch<React.SetStateAction<string>>;
+  handleFilteredRecipes: (recipe: MealType[] | DrinksType[]) => void;
+  filteredRecipes: MealType[] | DrinksType[]
 };
 
 export const Context = createContext({} as RecipesContext);
