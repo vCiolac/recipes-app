@@ -44,19 +44,19 @@ function Recipes() {
       }
       return newArray;
     }
-    if (recipesToDisplay.length >= 12) {
+    if (recipesToDisplay?.length >= 12) {
       return recipesToDisplay.slice(0, 12);
     }
     return recipesToDisplay;
   };
 
-  const twelveRecipes = filteredRecipes.length > 1
+  const twelveRecipes = filteredRecipes?.length > 1
     ? filteredRecipes.slice(0, 12) : getTwelveRecipes();
   const headerTitle = isMeal ? 'Meals' : 'Drinks';
   const iconTitle = isMeal ? plateIcon : drinkIcon;
 
   const getFiveCategories = () => {
-    return categories.slice(0, 5);
+    return categories?.slice(0, 5);
   };
 
   const fiveCategories = getFiveCategories();
@@ -81,7 +81,7 @@ function Recipes() {
         iconTitle={ iconTitle }
       />
       <div>
-        {fiveCategories.map((category, index) => (
+        {fiveCategories?.map((category, index) => (
           <button
             key={ index }
             data-testid={ `${category}-category-filter` }
@@ -100,7 +100,7 @@ function Recipes() {
         </div>
       </div>
       <div className="cards">
-        {twelveRecipes.map((recipe: any, index) => (
+        {twelveRecipes?.map((recipe: any, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recipe-card` }
