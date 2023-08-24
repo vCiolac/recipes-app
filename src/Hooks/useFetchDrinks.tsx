@@ -34,5 +34,3 @@ export function useFetchDrinks() {
 
   return { drinkInf, loadingDrink, drinksCategories };
 }
-
-;

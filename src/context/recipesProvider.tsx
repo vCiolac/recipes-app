@@ -22,10 +22,9 @@ function RecipesProvider({ children }: RecipesProps) {
     mealDetails,
     drinksDetails,
     loadingDetails,
-    detailId, 
-    setDetailId
+    detailId,
+    setDetailId,
   } = useFetchDetails();
-
 
   return (
     <Context.Provider
@@ -44,9 +43,8 @@ function RecipesProvider({ children }: RecipesProps) {
         mealDetails,
         drinksDetails,
         loadingDetails,
-        detailId, 
+        detailId,
         setDetailId,
-        
       } }
     >
       {children}

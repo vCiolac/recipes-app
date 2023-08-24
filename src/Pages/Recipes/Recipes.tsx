@@ -26,7 +26,7 @@ function Recipes() {
 
   const location = useLocation();
 
-  const [isMeal, setRecipeType] = useState(location.pathname === '/meals');
+  const [isMeal, setRecipeType] = useState(location.pathname.includes('meals'));
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -109,7 +109,7 @@ function Recipes() {
             </span>
             <NavLink
               to={ isMeal ? `/meals/${recipe.idMeal} ` : `/drinks/${recipe.idDrink}` }
-              onClick={ () => setDetailId(isMeal ? recipe.idMeal : recipe.idDrink) } 
+              onClick={ () => setDetailId(isMeal ? recipe.idMeal : recipe.idDrink) }
             >
               <img
                 src={ recipe.strMealThumb || recipe.strDrinkThumb }

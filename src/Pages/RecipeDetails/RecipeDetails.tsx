@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, NavLink, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Context } from '../../context/context';
 import Header from '../../components/Header/Header';
 import searchIcon from '../../images/searchIcon.svg';
@@ -20,8 +20,8 @@ function RecipesDetails() {
 
   const location = useLocation();
 
-  const [isMeal, setRecipeType] = useState(location.pathname === `/meals/${detailId}`);
-  const [details, setDetails] = useState< MealType[] | DrinksType[] >([]);
+  const [isMeal, setRecipeType] = useState(location.pathname.includes('meals'));
+  const [details, setDetails] = useState<MealType[] | DrinksType[]>([]);
 
   useEffect(() => {
     setDetails(isMeal ? mealDetails : drinksDetails);
@@ -29,8 +29,7 @@ function RecipesDetails() {
 
   const headerTitle = isMeal ? 'Meals' : 'Drinks';
   const iconTitle = isMeal ? plateIcon : drinkIcon;
-  const detailsMap = isMeal ? mealDetails : drinksDetails;
-  console.log(detailsMap);
+  const detailsMap: any = isMeal ? mealDetails : drinksDetails;
 
   if (loadingDetails) {
     return <div>Loading...</div>;
@@ -46,7 +45,6 @@ function RecipesDetails() {
       />
 
       <div className="details">
-
         <div>
           <h1 data-testid="recipe-title">
             {detailsMap[0].strMeal || detailsMap[0].strDrink}
@@ -60,11 +58,11 @@ function RecipesDetails() {
           />
 
           <span data-testid="recipe-category">
-            { detailsMap[0].strMealCategory || detailsMap[0].strDrinkCategory }
+            {detailsMap[0].strMealCategory || detailsMap[0].strDrinkCategory}
           </span>
 
           <p data-testid="instructions">
-            { detailsMap[0].strInstructions }
+            {detailsMap[0].strInstructions}
           </p>
 
           <iframe
@@ -73,8 +71,23 @@ function RecipesDetails() {
             height="315"
             src={ detailsMap[0].strYoutube }
           />
-
         </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Ingredient</th>
+              <th>Measure</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from({ length: 20 }, (value, ingIndex) => ingIndex + 1).map((num) => (
+              <tr key={ num }>
+                <td>{detailsMap[0][`strIngredient${num}`]}</td>
+                <td>{detailsMap[0][`strMeasure${num}`]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
       <Footer setRecipeType={ setRecipeType } />
     </div>
