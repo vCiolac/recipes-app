@@ -8,14 +8,15 @@ import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
 import { DrinksType, MealType } from '../../types';
+import styles from './RecipeDetails.module.css';
 
 function RecipesDetails() {
   const {
     mealDetails,
     drinksDetails,
     loadingDetails,
-    detailId,
-    setDetailId,
+    mealInf,
+    drinkInf,
   } = useContext(Context);
 
   const location = useLocation();
@@ -30,6 +31,17 @@ function RecipesDetails() {
   const headerTitle = isMeal ? 'Meals' : 'Drinks';
   const iconTitle = isMeal ? plateIcon : drinkIcon;
   const detailsMap: any = isMeal ? mealDetails : drinksDetails;
+  const [carouselImg, setCarouselImg] = useState(0);
+
+  const getSixRecipes = () => {
+    const recipesToDisplay = !isMeal ? mealInf : drinkInf;
+    if (recipesToDisplay?.length >= 6) {
+      return recipesToDisplay?.slice(0, 6);
+    }
+    return recipesToDisplay;
+  };
+
+  const sixRecipes = getSixRecipes();
 
   if (loadingDetails) {
     return <div>Loading...</div>;
@@ -44,7 +56,7 @@ function RecipesDetails() {
         iconTitle={ iconTitle }
       />
 
-      <div className="details">
+      <div className={ styles.details }>
         <div>
           <h1 data-testid="recipe-title">
             {detailsMap[0].strMeal || detailsMap[0].strDrink}
@@ -80,7 +92,7 @@ function RecipesDetails() {
             src={ detailsMap[0].strYoutube }
           />
         </div>
-        <div className="ingredient-section">
+        <div className="ingredients">
           <div>
             <h3>Ingredient</h3>
             {Array.from({ length: 20 }, (value, ingIndex) => ingIndex + 1).map((num) => (
@@ -96,6 +108,29 @@ function RecipesDetails() {
                 {detailsMap[0][`strMeasure${num}`]}
               </p>
             ))}
+          </div>
+        </div>
+        <div className={ styles.carouselContainer }>
+          <div className={ styles.carousel }>
+            <div className={ styles.flex }>
+              {sixRecipes?.map((recipe: any, index) => (
+                <div
+                  key={ index }
+                  data-testid={ `${index}-recommendation-card` }
+                  className={ styles.recipeCard }
+                >
+                  <span data-testid={ `${index}-recommendation-title` }>
+                    {recipe.strMeal || recipe.strDrink}
+                  </span>
+                  <img
+                    className={ styles.img }
+                    src={ recipe.strMealThumb || recipe.strDrinkThumb }
+                    alt={ recipe.strMeal || recipe.strDrink }
+                    data-testid={ `${index}-recommendation-img` }
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

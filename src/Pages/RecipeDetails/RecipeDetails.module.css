@@ -1,0 +1,26 @@
+.carouselContainer {
+  align-items: center;
+  display: flex;
+}
+
+.carousel {
+  display: flex;
+}
+
+.flex {
+  display: flex;
+}
+
+.recipeCard {
+  width: 28vh;
+  transition: transform 0.3s ease-in-out;
+  overflow-y: scroll;
+}
+
+.recipeCard:hover {
+  transform: scale(1.05);
+}
+
+.img {
+  width: 50vh;
+} 
