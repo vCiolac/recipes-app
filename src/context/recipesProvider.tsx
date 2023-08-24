@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useFetchCategories } from '../Hooks/useFetchCategories';
 import { useFetchDrinks } from '../Hooks/useFetchDrinks';
 import { useFetchMeals } from '../Hooks/useFetchMeals';
+import { useFetchDetails } from '../Hooks/useFetchDetails';
 import { Context } from './context';
 import { DrinksType, MealType } from '../types';
 
@@ -19,6 +20,14 @@ function RecipesProvider({ children }: RecipesProps) {
     setButtonName,
     buttonName,
   } = useFetchCategories();
+
+  const {
+    mealDetails,
+    drinksDetails,
+    loadingDetails,
+    detailId,
+    setDetailId,
+  } = useFetchDetails();
 
   const handleFilteredRecipes = (recipe: MealType[] | DrinksType[]) => {
     setFilteredRecipes(recipe);
@@ -38,6 +47,11 @@ function RecipesProvider({ children }: RecipesProps) {
         drinksFilterCategories,
         buttonName,
         setButtonName,
+        mealDetails,
+        drinksDetails,
+        loadingDetails,
+        detailId,
+        setDetailId,
         handleFilteredRecipes,
         filteredRecipes,
       } }

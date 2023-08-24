@@ -14,6 +14,11 @@ export type RecipesContext = {
   drinksFilterCategories: DrinksCategoriesType[];
   buttonName: string;
   setButtonName: React.Dispatch<React.SetStateAction<string>>;
+  mealDetails: MealType[];
+  drinksDetails: DrinksType[];
+  loadingDetails: boolean;
+  detailId: string;
+  setDetailId: React.Dispatch<React.SetStateAction<string>>;
   handleFilteredRecipes: (recipe: MealType[] | DrinksType[]) => void;
   filteredRecipes: MealType[] | DrinksType[]
 };
