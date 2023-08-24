@@ -24,10 +24,10 @@ function Footer({ setRecipeType }: RecipeTypeSelectorProps) {
 
   return (
     <footer data-testid="footer" className={ style.footer }>
-      <NavLink to="/meals/" onClick={ handleClickMeal }>
+      <NavLink to="/meals" onClick={ handleClickMeal }>
         <img src={ mealIcon } alt="meal" data-testid="meals-bottom-btn" />
       </NavLink>
-      <NavLink to="/drinks/" onClick={ handleClickDrink }>
+      <NavLink to="/drinks" onClick={ handleClickDrink }>
         <img src={ drikIcon } alt="drink" data-testid="drinks-bottom-btn" />
       </NavLink>
 
