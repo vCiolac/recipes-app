@@ -1,37 +1,21 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { vi } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
 import { renderWithRouter } from './helpers/renderWithRouter';
 import App from '../App';
-import { DrinksMock, MealsMock } from '../Mocks/offlineRecipes';
-import { DrinksCategoryMock, MealsCategoryMock } from '../Mocks/offlineCategories';
+import mockFetch from '../Mocks/mockFetch';
 
 describe('Testando comportamento do Recipes', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
   beforeEach(async () => {
-    const fetch = (url: any) => Promise.resolve({
-
-      json: () => {
-        if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') { return Promise.resolve(MealsCategoryMock); }
-        if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') { return Promise.resolve(MealsMock); }
-        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list') { return Promise.resolve(DrinksCategoryMock); }
-        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') { return Promise.resolve(DrinksMock); }
-      },
-    });
-
-    vi.spyOn(global, 'fetch').mockImplementation(fetch as any);
-
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>,
-    );
+    vi.spyOn(global, 'fetch').mockImplementation(mockFetch as any);
   });
 
   test('Testa se os botões de categoria estão aparecendo em meals', async () => {
     renderWithRouter(<App />, { route: '/meals' });
+    expect(global.fetch).toHaveBeenCalledTimes(4);
+    expect(await screen.findByRole('heading', { name: /recipes app/i })).toBeInTheDocument();
 
     const button1 = await screen.findByRole('button', { name: /beef/i });
     const button2 = await screen.findByRole('button', { name: /breakfast/i });
