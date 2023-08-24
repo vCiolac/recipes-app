@@ -23,7 +23,6 @@ function Recipes() {
     loadingCategories,
     setDetailId,
     filteredRecipes,
-    setDetailId,
   } = useContext(Context);
 
   const location = useLocation();
