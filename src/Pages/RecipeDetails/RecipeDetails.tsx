@@ -57,9 +57,16 @@ function RecipesDetails() {
             alt={ detailsMap[0].strMeal || detailsMap[0].strDrink }
           />
 
-          <span data-testid="recipe-category">
-            {detailsMap[0].strMealCategory || detailsMap[0].strDrinkCategory}
-          </span>
+          {isMeal && (
+            <span data-testid="recipe-category">
+              {detailsMap[0].strCategory}
+            </span>
+          )}
+          {!isMeal && (
+            <span data-testid="recipe-category">
+              {detailsMap[0].strAlcoholic}
+            </span>
+          )}
 
           <p data-testid="instructions">
             {detailsMap[0].strInstructions}
@@ -69,25 +76,28 @@ function RecipesDetails() {
             title="video"
             width="560"
             height="315"
+            data-testid="video"
             src={ detailsMap[0].strYoutube }
           />
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Ingredient</th>
-              <th>Measure</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className="ingredient-section">
+          <div>
+            <h3>Ingredient</h3>
             {Array.from({ length: 20 }, (value, ingIndex) => ingIndex + 1).map((num) => (
-              <tr key={ num }>
-                <td>{detailsMap[0][`strIngredient${num}`]}</td>
-                <td>{detailsMap[0][`strMeasure${num}`]}</td>
-              </tr>
+              <p key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
+                {detailsMap[0][`strIngredient${num}`]}
+              </p>
             ))}
-          </tbody>
-        </table>
+          </div>
+          <div>
+            <h3>Measure</h3>
+            {Array.from({ length: 20 }, (value, ingIndex) => ingIndex + 1).map((num) => (
+              <p key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
+                {detailsMap[0][`strMeasure${num}`]}
+              </p>
+            ))}
+          </div>
+        </div>
       </div>
       <Footer setRecipeType={ setRecipeType } />
     </div>

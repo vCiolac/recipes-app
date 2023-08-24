@@ -8,7 +8,7 @@ export function useFetchDetails() {
   const [drinksDetails, setDrinksDetails] = useState<DrinksType[]>([]);
   const [loadingDetails, setloadingDetails] = useState(true);
   const [detailId, setDetailId] = useState(location.pathname.split('/')[2]);
-  const [isMeal, setIsMeal] = useState(location.pathname.includes('meals'))
+  const [isMeal, setIsMeal] = useState(location.pathname.includes('meals'));
 
   async function fetchMealsDetails() {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${detailId}`);
