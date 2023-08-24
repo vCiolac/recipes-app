@@ -28,18 +28,10 @@ function RecipesProvider({ children }: RecipesProps) {
     detailId,
     setDetailId,
   } = useFetchDetails();
+
   const handleFilteredRecipes = (recipe: MealType[] | DrinksType[]) => {
     setFilteredRecipes(recipe);
   };
-
-  const {
-    mealDetails,
-    drinksDetails,
-    loadingDetails,
-    detailId, 
-    setDetailId
-  } = useFetchDetails();
-
 
   return (
     <Context.Provider
@@ -62,12 +54,6 @@ function RecipesProvider({ children }: RecipesProps) {
         setDetailId,
         handleFilteredRecipes,
         filteredRecipes,
-        mealDetails,
-        drinksDetails,
-        loadingDetails,
-        detailId, 
-        setDetailId,
-        
       } }
     >
       {children}
