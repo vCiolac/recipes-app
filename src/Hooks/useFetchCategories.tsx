@@ -29,6 +29,8 @@ export function useFetchCategories() {
       try {
         const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonName}`);
         const data = await response.json();
+        console.log(data);
+
         if (data && data.meals) {
           setMealFilterCategories(data.meals);
         }
