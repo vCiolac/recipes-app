@@ -128,3 +128,8 @@ export interface RecipeDoneType {
   doneDate: string;
   tags: string[];
 }
+
+export type InProgressType = {
+  meals: string[];
+  drinks: string[];
+};
