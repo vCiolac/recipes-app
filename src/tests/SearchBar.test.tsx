@@ -10,7 +10,7 @@ describe('Testes referentes a SearchBar', () => {
     vi.clearAllMocks();
   });
   beforeEach(async () => {
-    vi.spyOn(global, 'fetch').mockImplementation(mockFetch as any);
+    global.fetch = vi.fn().mockImplementation(mockFetch as any);
   });
 
   test('Testa se na rota /meals, se após pesquisar por chicken o input seja limpo', async () => {
