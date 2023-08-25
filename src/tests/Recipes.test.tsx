@@ -10,7 +10,7 @@ describe('Testando comportamento do Recipes', () => {
     vi.clearAllMocks();
   });
   beforeEach(async () => {
-    vi.spyOn(global, 'fetch').mockImplementation(mockFetch as any);
+    global.fetch = vi.fn().mockImplementation(mockFetch as any);
   });
 
   test('Testa se os botões de categoria estão aparecendo em meals', async () => {
