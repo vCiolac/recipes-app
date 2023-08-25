@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useClipboard } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Context } from '../../context/context';
 import Header from '../../components/Header/Header';
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
+import favoriteIcon from '../../images/favoriteIcon.png';
 import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
@@ -25,24 +27,26 @@ function RecipesDetails() {
 
   const [isMeal, setRecipeType] = useState(location.pathname.includes('meals'));
   const [details, setDetails] = useState<MealType[] | DrinksType[]>([]);
-  // const {
-  //   localStorageValue: doneRecipe,
-  //   updateValue: setDoneRecipe,
-  // } = useLocalStorage('doneRecipe', [] as any[]);
   const {
     localStorageValue: inProgressRecipes,
     updateValue: setInProgressRecipes,
   } = useLocalStorage('inProgressRecipes', {} as InProgressType);
+  const {
+    localStorageValue: favoriteRecipes,
+    updateValue: setFavoriteRecipes,
+  } = useLocalStorage('favoriteRecipes', [] as any[]);
+
+  const [sharedLink, setSharedLink] = useState(false);
 
   useEffect(() => {
     setDetails(isMeal ? mealDetails : drinksDetails);
   }, [isMeal, mealDetails, drinksDetails]);
 
   const headerTitle = isMeal ? 'Meals' : 'Drinks';
+  const titleLow = isMeal ? 'meals' : 'drinks';
   const iconTitle = isMeal ? plateIcon : drinkIcon;
   const detailsMap: any = isMeal ? mealDetails : drinksDetails;
-
-  console.log(mealDetails);
+  const navigate = useNavigate();
 
   const getSixRecipes = () => {
     const recipesToDisplay = !isMeal ? mealInf : drinkInf;
@@ -57,7 +61,8 @@ function RecipesDetails() {
 
   const recipeId = detailsMap[0]?.idMeal || detailsMap[0]?.idDrink;
 
-  const handleStartRecipe = () => {
+  const handleStartRecipe = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     const ingredientList = Object.keys(detailsMap[0])
       .filter((key) => key.startsWith('strIngredient'))
       .map((key) => detailsMap[0][key])
@@ -68,24 +73,40 @@ function RecipesDetails() {
         [recipeId]: ingredientList,
       },
     };
-    // const recipeDone = {
-    //   id: detailsMap[0].idMeal || detailsMap[0].idDrink,
-    //   type: isMeal ? 'meal' : 'drink',
-    //   nationality: detailsMap[0].strArea || '',
-    //   category: detailsMap[0].strCategory || '',
-    //   alcoholicOrNot: detailsMap[0].strAlcoholic || '',
-    //   name: detailsMap[0].strMeal || detailsMap[0].strDrink,
-    //   image: detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb,
-    //   doneDate: detailsMap[0].dateModified || '',
-    //   tags: [detailsMap[0].strTags] || [],
-    // };
-    // setDoneRecipe([...doneRecipe, recipeDone]);
     setInProgressRecipes({ ...inProgressRecipes, ...inProgressRecipe });
+    navigate(`/${titleLow}/${recipeId}/in-progress`);
   };
 
-  // const isDoneRecipe = doneRecipe?.some((recipe: any) => recipe.id === recipeId);
   const isInProgress = inProgressRecipes[isMeal ? 'meals' : 'drinks']?.[recipeId];
   const handleButtonName = !isInProgress ? 'Start Recipe' : 'Continue Recipe';
+
+  const { clipboard } = navigator;
+  const recipeLink = `${window.location.origin}${window.location.pathname}`;
+
+  const handleSharedLink = () => {
+    clipboard.writeText(recipeLink).then(
+      () => {
+        setSharedLink(true);
+      },
+      () => {
+        console.error('Erro ao colar o link em seu clipboard');
+      },
+    );
+  };
+
+  const handleFavoriteRecipe = () => {
+    const newFavorite = {
+      id: recipeId,
+      type: isMeal ? 'meal' : 'drink',
+      nationality: detailsMap[0].strArea || '',
+      category: detailsMap[0].strCategory || '',
+      alcoholicOrNot: detailsMap[0].strAlcoholic || '',
+      name: detailsMap[0].strMeal || detailsMap[0].strDrink,
+      image: detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb,
+    };
+
+    setFavoriteRecipes([...favoriteRecipes, newFavorite]);
+  };
 
   if (loadingDetails) {
     return <div>Loading...</div>;
@@ -202,6 +223,24 @@ function RecipesDetails() {
         disabled={ isInProgress }
       >
         { handleButtonName }
+      </button>
+
+      {sharedLink && <span>Link copied!</span>}
+
+      <button
+        className={ styles.shareBtn }
+        data-testid="share-btn"
+        onClick={ handleSharedLink }
+      >
+        <img src={ shareIcon } alt="Share Recipe" />
+      </button>
+
+      <button
+        className={ styles.favBtn }
+        data-testid="favorite-btn"
+        onClick={ handleFavoriteRecipe }
+      >
+        <img src={ favoriteIcon } alt="Favorite Recipe" />
       </button>
       <Footer setRecipeType={ setRecipeType } />
     </div>
