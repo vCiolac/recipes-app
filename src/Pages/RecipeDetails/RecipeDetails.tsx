@@ -25,7 +25,10 @@ function RecipesDetails() {
 
   const [isMeal, setRecipeType] = useState(location.pathname.includes('meals'));
   const [details, setDetails] = useState<MealType[] | DrinksType[]>([]);
-  const [doneRecipe, setDoneRecipe] = useLocalStorage('doneRecipe');
+  const {
+    localStorageValue: doneRecipe,
+    updateValue: setDoneRecipe,
+  } = useLocalStorage('doneRecipe', [] as any[]);
 
   useEffect(() => {
     setDetails(isMeal ? mealDetails : drinksDetails);
@@ -59,9 +62,10 @@ function RecipesDetails() {
       tags: [detailsMap[0].strTags] || [],
     };
     setDoneRecipe([...doneRecipe, recipeDone]);
-    console.log('objetct', Object(doneRecipe));
-    console.log(doneRecipe);
   };
+
+  const recipeId = detailsMap[0]?.idMeal || detailsMap[0]?.idDrink;
+  const isInLocalStorage = doneRecipe.some((recipe: any) => recipe.id === recipeId);
 
   if (loadingDetails) {
     return <div>Loading...</div>;
@@ -163,7 +167,7 @@ function RecipesDetails() {
         type="button"
         data-testid="start-recipe-btn"
         onClick={ handleStartRecipe }
-        // disabled={ isRecipeSaved }
+        disabled={ isInLocalStorage }
       >
         Start Recipe
       </button>
