@@ -19,21 +19,23 @@ function SearchBar() {
         const ingredientURL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`;
         const response = await fetch(ingredientURL);
         const data = await response.json();
+        setSearchInput('');
         return data.meals;
       }
       if (radio === nameString) {
         const nameURL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`;
         const response = await fetch(nameURL);
         const data = await response.json();
+        setSearchInput('');
         return data.meals;
       }
       if (radio === firstLetterString) {
         const firstLetterURL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`;
         const response = await fetch(firstLetterURL);
         const data = await response.json();
+        setSearchInput('');
         return data.meals;
       }
-      setSearchInput('');
     } catch (error) {
       window.alert('Your search must have only 1 (one) character');
     }
@@ -45,21 +47,23 @@ function SearchBar() {
         const ingredientURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`;
         const response = await fetch(ingredientURL);
         const data = await response.json();
+        setSearchInput('');
         return data.drinks;
       }
       if (radio === nameString) {
         const nameURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`;
         const response = await fetch(nameURL);
         const data = await response.json();
+        setSearchInput('');
         return data.drinks;
       }
       if (radio === firstLetterString) {
         const firstLetterURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`;
         const response = await fetch(firstLetterURL);
         const data = await response.json();
+        setSearchInput('');
         return data.drinks;
       }
-      setSearchInput('');
     } catch (error) {
       window.alert('Your search must have only 1 (one) character');
     }
@@ -102,30 +106,39 @@ function SearchBar() {
         data-testid="search-input"
         value={ searchInput }
       />
-      <input
-        onClick={ () => setRadio('ingredient') }
-        data-testid="ingredient-search-radio"
-        type="radio"
-        name="radio-search"
-        id="ingredient"
-      />
-      Ingredient
-      <input
-        onClick={ () => setRadio('name') }
-        data-testid="name-search-radio"
-        type="radio"
-        name="radio-search"
-        id="name"
-      />
-      Name
-      <input
-        onClick={ () => setRadio('first letter') }
-        data-testid="first-letter-search-radio"
-        type="radio"
-        name="radio-search"
-        id="firstLetter"
-      />
-      First letter
+
+      <label htmlFor="ingredient">
+        <input
+          onClick={ () => setRadio('ingredient') }
+          data-testid="ingredient-search-radio"
+          type="radio"
+          name="radio-search"
+          id="ingredient"
+        />
+        Ingredient
+      </label>
+
+      <label htmlFor="name">
+        <input
+          onClick={ () => setRadio('name') }
+          data-testid="name-search-radio"
+          type="radio"
+          name="radio-search"
+          id="name"
+        />
+        Name
+      </label>
+
+      <label htmlFor="firstLetter">
+        <input
+          onClick={ () => setRadio('first letter') }
+          data-testid="first-letter-search-radio"
+          type="radio"
+          name="radio-search"
+          id="firstLetter"
+        />
+        First letter
+      </label>
 
       <button onClick={ searchByPathName } data-testid="exec-search-btn">Search</button>
     </div>
