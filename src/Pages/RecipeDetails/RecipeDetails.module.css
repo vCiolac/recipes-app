@@ -1,26 +1,33 @@
+* {
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
 .carouselContainer {
-  align-items: center;
   display: flex;
+  cursor: grab;
+  overflow: hidden;
 }
 
 .carousel {
   display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
-.flex {
-  display: flex;
-}
-
-.recipeCard {
-  width: 28vh;
+.itemCard {
   transition: transform 0.3s ease-in-out;
-  overflow-y: scroll;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 27vh;
 }
 
-.recipeCard:hover {
+.itemCard:hover {
   transform: scale(1.05);
 }
 
-.img {
-  width: 50vh;
-} 
+.itemCard img {
+  height: 20vh;
+  width: 20vh;
+  object-fit: cover;
+}

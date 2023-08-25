@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Context } from '../../context/context';
 import Header from '../../components/Header/Header';
 import searchIcon from '../../images/searchIcon.svg';
@@ -31,7 +32,6 @@ function RecipesDetails() {
   const headerTitle = isMeal ? 'Meals' : 'Drinks';
   const iconTitle = isMeal ? plateIcon : drinkIcon;
   const detailsMap: any = isMeal ? mealDetails : drinksDetails;
-  const [carouselImg, setCarouselImg] = useState(0);
 
   const getSixRecipes = () => {
     const recipesToDisplay = !isMeal ? mealInf : drinkInf;
@@ -111,27 +111,29 @@ function RecipesDetails() {
           </div>
         </div>
         <div className={ styles.carouselContainer }>
-          <div className={ styles.carousel }>
-            <div className={ styles.flex }>
-              {sixRecipes?.map((recipe: any, index) => (
-                <div
-                  key={ index }
-                  data-testid={ `${index}-recommendation-card` }
-                  className={ styles.recipeCard }
-                >
-                  <span data-testid={ `${index}-recommendation-title` }>
-                    {recipe.strMeal || recipe.strDrink}
-                  </span>
-                  <img
-                    className={ styles.img }
-                    src={ recipe.strMealThumb || recipe.strDrinkThumb }
-                    alt={ recipe.strMeal || recipe.strDrink }
-                    data-testid={ `${index}-recommendation-img` }
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <motion.div
+            className={ styles.carousel }
+            drag="x"
+            dragConstraints={ { right: 50, left: -50 } }
+          >
+            {sixRecipes?.map((recipe: any, index) => (
+              <motion.div
+                key={ index }
+                data-testid={ `${index}-recommendation-card` }
+                className={ styles.itemCard }
+              >
+                <span data-testid={ `${index}-recommendation-title` }>
+                  {recipe.strMeal || recipe.strDrink}
+                </span>
+                <img
+                  className={ styles.img }
+                  src={ recipe.strMealThumb || recipe.strDrinkThumb }
+                  alt={ recipe.strMeal || recipe.strDrink }
+                  data-testid={ `${index}-recommendation-img` }
+                />
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
       <Footer setRecipeType={ setRecipeType } />
