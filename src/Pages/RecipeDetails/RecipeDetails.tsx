@@ -36,8 +36,8 @@ function RecipesDetails() {
   const getSixRecipes = () => {
     const recipesToDisplay = !isMeal ? mealInf : drinkInf;
     if (recipesToDisplay?.length >= 6) {
-      const randomRecipes = recipesToDisplay.slice().sort(() => Math.random() - 0.5);
-      return randomRecipes.slice(0, 6);
+      // const randomRecipes = recipesToDisplay.slice().sort(() => Math.random() - 0.5);
+      return recipesToDisplay.slice(0, 6);
     }
     return recipesToDisplay;
   };
