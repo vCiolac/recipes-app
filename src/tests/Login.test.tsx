@@ -6,16 +6,16 @@ import { renderWithRouter } from './helpers/renderWithRouter';
 import mockFetch from '../Mocks/mockFetch';
 
 describe('Testando a tela de login', () => {
-  test('Testa se os inputs de email e senha estão presentes na tela junto com o botão de entrar.', async () => {
-    afterEach(() => {
-      vi.clearAllMocks();
-    });
-    beforeEach(async () => {
-      global.fetch = vi.fn().mockImplementation(mockFetch as any);
-      window.alert = vi.fn(() => {});
-    });
-    renderWithRouter(<App />, { route: '/' });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+  beforeEach(async () => {
+    global.fetch = vi.fn().mockImplementation(mockFetch as any);
+    window.alert = vi.fn(() => {});
+  });
 
+  test('Testa se os inputs de email e senha estão presentes na tela junto com o botão de entrar.', async () => {
+    renderWithRouter(<App />, { route: '/' });
     const emailInput = screen.getByRole('textbox');
     const passwordInput = screen.getByTestId('password-input');
     const entrarButton = screen.getByRole('button', { name: 'Entrar' });
