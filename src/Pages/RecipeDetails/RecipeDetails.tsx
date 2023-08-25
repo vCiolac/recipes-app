@@ -111,28 +111,30 @@ function RecipesDetails() {
           </div>
         </div>
         <div className={ styles.carouselContainer }>
-          <motion.div
-            className={ styles.carousel }
-            drag="x"
-            dragConstraints={ { right: 50, left: -50 } }
-          >
-            {sixRecipes?.map((recipe: any, index) => (
-              <motion.div
-                key={ index }
-                data-testid={ `${index}-recommendation-card` }
-                className={ styles.itemCard }
-              >
-                <span data-testid={ `${index}-recommendation-title` }>
-                  {recipe.strMeal || recipe.strDrink}
-                </span>
-                <img
-                  className={ styles.img }
-                  src={ recipe.strMealThumb || recipe.strDrinkThumb }
-                  alt={ recipe.strMeal || recipe.strDrink }
-                  data-testid={ `${index}-recommendation-img` }
-                />
-              </motion.div>
-            ))}
+          <motion.div whileTap={ { cursor: 'grabbing' } } className={ styles.carousel }>
+            <motion.div
+              className={ styles.inner }
+              drag="x"
+              dragConstraints={ { left: -700, right: 0 } }
+            >
+              {sixRecipes?.map((recipe: any, index) => (
+                <motion.div
+                  key={ index }
+                  data-testid={ `${index}-recommendation-card` }
+                  className={ styles.itemCard }
+                >
+                  <span data-testid={ `${index}-recommendation-title` }>
+                    {recipe.strMeal || recipe.strDrink}
+                  </span>
+                  <img
+                    className={ styles.img }
+                    src={ recipe.strMealThumb || recipe.strDrinkThumb }
+                    alt={ recipe.strMeal || recipe.strDrink }
+                    data-testid={ `${index}-recommendation-img` }
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </div>

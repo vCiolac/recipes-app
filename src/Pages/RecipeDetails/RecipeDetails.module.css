@@ -1,25 +1,29 @@
 * {
   box-sizing: border-box;
-  overflow-x: hidden;
 }
 
 .carouselContainer {
-  cursor: grab;
+  align-items: center;
   display: flex;
-  overflow: hidden;
+  justify-content: center;
+  margin: 0.5rem;
+  max-width: 600px;
+  width: 100%;
 }
 
 .carousel {
+  cursor: grab;
+  overflow: hidden;
+}
+
+.inner {
   display: flex;
-  overflow-x: scroll;
-  overflow-y: hidden;
 }
 
 .itemCard {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
+  min-height: 200px;
+  min-width: 11rem;
   transition: transform 0.3s ease-in-out;
-  width: 27vh;
 }
 
 .itemCard:hover {
@@ -27,7 +31,8 @@
 }
 
 .itemCard img {
-  height: 20vh;
-  object-fit: cover;
+  border-radius: 12px;
+  height: 90%;
+  pointer-events: none;
   width: 20vh;
 }
