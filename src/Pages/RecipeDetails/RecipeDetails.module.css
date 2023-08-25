@@ -4,8 +4,8 @@
 }
 
 .carouselContainer {
-  display: flex;
   cursor: grab;
+  display: flex;
   overflow: hidden;
 }
 
@@ -16,8 +16,8 @@
 }
 
 .itemCard {
-  transition: transform 0.3s ease-in-out;
   flex: 0 0 auto;
+  transition: transform 0.3s ease-in-out;
   scroll-snap-align: start;
   width: 27vh;
 }
@@ -28,6 +28,6 @@
 
 .itemCard img {
   height: 20vh;
-  width: 20vh;
   object-fit: cover;
+  width: 20vh;
 }
