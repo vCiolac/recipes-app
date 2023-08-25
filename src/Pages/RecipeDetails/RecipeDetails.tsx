@@ -33,6 +33,8 @@ function RecipesDetails() {
   const iconTitle = isMeal ? plateIcon : drinkIcon;
   const detailsMap: any = isMeal ? mealDetails : drinksDetails;
 
+  console.log(mealDetails);
+
   const getSixRecipes = () => {
     const recipesToDisplay = !isMeal ? mealInf : drinkInf;
     if (recipesToDisplay?.length >= 6) {
