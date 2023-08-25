@@ -11,6 +11,7 @@ describe('Testes referentes a SearchBar', () => {
   });
   beforeEach(async () => {
     global.fetch = vi.fn().mockImplementation(mockFetch as any);
+    window.alert = vi.fn(() => {});
   });
 
   test('Testa se na rota /meals, se após pesquisar por chicken o input seja limpo', async () => {

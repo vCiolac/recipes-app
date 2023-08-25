@@ -11,6 +11,7 @@ describe('Testes referentes ao Header', () => {
   });
   beforeEach(async () => {
     global.fetch = vi.fn().mockImplementation(mockFetch as any);
+    window.alert = vi.fn(() => {});
   });
 
   test('Testa se o header possui o nome Recipes App e seu respectivo ícone de imagem.', async () => {

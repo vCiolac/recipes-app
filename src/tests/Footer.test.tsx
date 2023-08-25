@@ -12,6 +12,7 @@ describe('Testando comportamento do Footer', () => {
   });
   beforeEach(async () => {
     global.fetch = vi.fn().mockImplementation(mockFetch as any);
+    window.alert = vi.fn(() => {});
   });
 
   test('Testa se ao clicar no botão de drinks a página é redirecionada', async () => {
