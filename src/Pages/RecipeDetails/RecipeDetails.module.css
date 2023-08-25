@@ -17,8 +17,8 @@
 
 .itemCard {
   flex: 0 0 auto;
-  transition: transform 0.3s ease-in-out;
   scroll-snap-align: start;
+  transition: transform 0.3s ease-in-out;
   width: 27vh;
 }
 
