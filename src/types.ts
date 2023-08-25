@@ -116,3 +116,20 @@ export type DrinksType = {
   strCreativeCommonsConfirmed: string;
   dateModified: string;
 };
+
+export interface RecipeDoneType {
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot: string;
+  name: string;
+  image: string;
+  doneDate: string;
+  tags: string[];
+}
+
+export type InProgressType = {
+  meals: string[];
+  drinks: string[];
+};

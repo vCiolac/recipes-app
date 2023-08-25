@@ -1,28 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-type UseLocalStorageResult = [string,
-  React.Dispatch<React.SetStateAction<object | null>>];
-
-function useLocalStorage(
-  key: string,
-  initialValue?: object | null,
-): UseLocalStorageResult {
-  const [localStorageValue, setLocalStorageValue] = useState(() => {
-    const storedValue = localStorage.getItem(key);
-    try {
-      return storedValue ? JSON.parse(storedValue) : initialValue;
-    } catch (err) {
-      return initialValue;
-    }
-  });
+function useLocalStorage<Type>(key: string, initialValue: Type) {
+  const [localStorageValue, setLocalStorageValue] = useState<Type>(initialValue);
 
   useEffect(() => {
-    if (localStorageValue) {
-      localStorage.setItem(key, JSON.stringify(localStorageValue));
+    const storedValue = localStorage.getItem(key);
+    if (storedValue) {
+      try {
+        setLocalStorageValue(JSON.parse(storedValue));
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }, [key, localStorageValue]);
+  }, [key]);
 
-  return [localStorageValue, setLocalStorageValue];
+  const updateValue = useCallback(
+    (value: Type) => {
+      setLocalStorageValue(value);
+      localStorage.setItem(key, JSON.stringify(value));
+    },
+    [key],
+  );
+
+  return { localStorageValue, updateValue };
 }
 
 export default useLocalStorage;

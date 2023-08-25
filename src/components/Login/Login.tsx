@@ -7,7 +7,10 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
-  const [userEmail, setUserEmail] = useLocalStorage('user');
+  const {
+    localStorageValue: userEmail,
+    updateValue: setUserEmail,
+  } = useLocalStorage('user', {});
   const navigate = useNavigate();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,10 +25,12 @@ function Login() {
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const passwordValue = event.target.value;
     const isValid = passwordValue.length > 6;
-
+    const userSave = {
+      email: emails,
+    };
     setPassword(passwordValue);
     setIsValidPassword(isValid);
-    setUserEmail({ email: emails });
+    setUserEmail(userSave);
   };
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

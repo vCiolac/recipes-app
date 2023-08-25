@@ -8,8 +8,9 @@ import profileIcon from '../../images/profileIcon.svg';
 import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
-import { DrinksType, MealType } from '../../types';
+import { DrinksType, InProgressType, MealType } from '../../types';
 import styles from './RecipeDetails.module.css';
+import useLocalStorage from '../../Hooks/useLocalStorage';
 
 function RecipesDetails() {
   const {
@@ -24,6 +25,14 @@ function RecipesDetails() {
 
   const [isMeal, setRecipeType] = useState(location.pathname.includes('meals'));
   const [details, setDetails] = useState<MealType[] | DrinksType[]>([]);
+  // const {
+  //   localStorageValue: doneRecipe,
+  //   updateValue: setDoneRecipe,
+  // } = useLocalStorage('doneRecipe', [] as any[]);
+  const {
+    localStorageValue: inProgressRecipes,
+    updateValue: setInProgressRecipes,
+  } = useLocalStorage('inProgressRecipes', {} as InProgressType);
 
   useEffect(() => {
     setDetails(isMeal ? mealDetails : drinksDetails);
@@ -45,6 +54,38 @@ function RecipesDetails() {
   };
 
   const sixRecipes = getSixRecipes();
+
+  const recipeId = detailsMap[0]?.idMeal || detailsMap[0]?.idDrink;
+
+  const handleStartRecipe = () => {
+    const ingredientList = Object.keys(detailsMap[0])
+      .filter((key) => key.startsWith('strIngredient'))
+      .map((key) => detailsMap[0][key])
+      .filter((ingredient) => ingredient !== null && ingredient !== '');
+
+    const inProgressRecipe = {
+      [isMeal ? 'meals' : 'drinks']: {
+        [recipeId]: ingredientList,
+      },
+    };
+    // const recipeDone = {
+    //   id: detailsMap[0].idMeal || detailsMap[0].idDrink,
+    //   type: isMeal ? 'meal' : 'drink',
+    //   nationality: detailsMap[0].strArea || '',
+    //   category: detailsMap[0].strCategory || '',
+    //   alcoholicOrNot: detailsMap[0].strAlcoholic || '',
+    //   name: detailsMap[0].strMeal || detailsMap[0].strDrink,
+    //   image: detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb,
+    //   doneDate: detailsMap[0].dateModified || '',
+    //   tags: [detailsMap[0].strTags] || [],
+    // };
+    // setDoneRecipe([...doneRecipe, recipeDone]);
+    setInProgressRecipes({ ...inProgressRecipes, ...inProgressRecipe });
+  };
+
+  // const isDoneRecipe = doneRecipe?.some((recipe: any) => recipe.id === recipeId);
+  const isInProgress = inProgressRecipes[isMeal ? 'meals' : 'drinks']?.[recipeId];
+  const handleButtonName = !isInProgress ? 'Start Recipe' : 'Continue Recipe';
 
   if (loadingDetails) {
     return <div>Loading...</div>;
@@ -98,19 +139,31 @@ function RecipesDetails() {
         <div className="ingredients">
           <div>
             <h3>Ingredient</h3>
-            {Array.from({ length: 20 }, (value, ingIndex) => ingIndex + 1).map((num) => (
-              <p key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
-                {detailsMap[0][`strIngredient${num}`]}
-              </p>
-            ))}
+            {Array.from({ length: 20 }, (value, ingIndex) => ingIndex + 1).map((num) => {
+              const ingredient = detailsMap[0][`strIngredient${num}`];
+              if (ingredient !== null && ingredient !== '') {
+                return (
+                  <p key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
+                    { ingredient }
+                  </p>
+                );
+              }
+              return null;
+            })}
           </div>
           <div>
             <h3>Measure</h3>
-            {Array.from({ length: 20 }, (value, ingIndex) => ingIndex + 1).map((num) => (
-              <p key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
-                {detailsMap[0][`strMeasure${num}`]}
-              </p>
-            ))}
+            {Array.from({ length: 20 }, (value, ingIndex) => ingIndex + 1).map((num) => {
+              const measure = detailsMap[0][`strMeasure${num}`];
+              if (measure !== null && measure !== '') {
+                return (
+                  <p key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
+                    { measure }
+                  </p>
+                );
+              }
+              return null;
+            })}
           </div>
         </div>
         <div className={ styles.carouselContainer }>
@@ -141,6 +194,15 @@ function RecipesDetails() {
           </motion.div>
         </div>
       </div>
+      <button
+        className={ styles.startRecipe }
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleStartRecipe }
+        disabled={ isInProgress }
+      >
+        { handleButtonName }
+      </button>
       <Footer setRecipeType={ setRecipeType } />
     </div>
   );
