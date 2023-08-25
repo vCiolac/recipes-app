@@ -5,7 +5,7 @@ type UseLocalStorageResult = [string,
 
 function useLocalStorage(
   key: string,
-  initialValue?: object | null,
+  initialValue?: object | object[] | null,
 ): UseLocalStorageResult {
   const [localStorageValue, setLocalStorageValue] = useState(() => {
     const storedValue = localStorage.getItem(key);
@@ -17,8 +17,9 @@ function useLocalStorage(
   });
 
   useEffect(() => {
+    const storedValue = localStorage.getItem(key);
     if (localStorageValue) {
-      localStorage.setItem(key, JSON.stringify(localStorageValue));
+      localStorage.setItem(key, JSON.stringify([storedValue, localStorageValue]));
     }
   }, [key, localStorageValue]);
 

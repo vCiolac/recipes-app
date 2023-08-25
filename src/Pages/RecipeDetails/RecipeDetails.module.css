@@ -36,3 +36,9 @@
   pointer-events: none;
   width: 20vh;
 }
+
+.startRecipe {
+  position: fixed;
+  bottom: 0px;
+  left: 8.5rem;
+}

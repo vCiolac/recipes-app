@@ -10,6 +10,7 @@ import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
 import { DrinksType, MealType } from '../../types';
 import styles from './RecipeDetails.module.css';
+import useLocalStorage from '../../Hooks/useLocalStorage';
 
 function RecipesDetails() {
   const {
@@ -24,6 +25,7 @@ function RecipesDetails() {
 
   const [isMeal, setRecipeType] = useState(location.pathname.includes('meals'));
   const [details, setDetails] = useState<MealType[] | DrinksType[]>([]);
+  const [doneRecipe, setDoneRecipe] = useLocalStorage('doneRecipe');
 
   useEffect(() => {
     setDetails(isMeal ? mealDetails : drinksDetails);
@@ -43,6 +45,23 @@ function RecipesDetails() {
   };
 
   const sixRecipes = getSixRecipes();
+
+  const handleStartRecipe = () => {
+    const recipeDone = {
+      id: detailsMap[0].idMeal || detailsMap[0].idDrink,
+      type: isMeal ? 'meal' : 'drink',
+      nationality: detailsMap[0].strArea || '',
+      category: detailsMap[0].strCategory || '',
+      alcoholicOrNot: detailsMap[0].strAlcoholic || '',
+      name: detailsMap[0].strMeal || detailsMap[0].strDrink,
+      image: detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb,
+      doneDate: detailsMap[0].dateModified || '',
+      tags: [detailsMap[0].strTags] || [],
+    };
+    setDoneRecipe([...doneRecipe, recipeDone]);
+    console.log('objetct', Object(doneRecipe));
+    console.log(doneRecipe);
+  };
 
   if (loadingDetails) {
     return <div>Loading...</div>;
@@ -139,6 +158,15 @@ function RecipesDetails() {
           </motion.div>
         </div>
       </div>
+      <button
+        className={ styles.startRecipe }
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleStartRecipe }
+        // disabled={ isRecipeSaved }
+      >
+        Start Recipe
+      </button>
       <Footer setRecipeType={ setRecipeType } />
     </div>
   );
