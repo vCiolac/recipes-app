@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+.carouselContainer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+.carousel {
+  cursor: grab;
+  overflow: hidden;
+}
+
+.inner {
+  display: flex;
+}
+
+.itemCard {
+  min-height: 200px;
+  min-width: 11rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.itemCard:hover {
+  transform: scale(1.05);
+}
+
+.itemCard img {
+  border-radius: 12px;
+  height: 90%;
+  pointer-events: none;
+  width: 20vh;
+}
