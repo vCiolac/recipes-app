@@ -24,12 +24,14 @@ export function useFetchCategories() {
     setDrinksFilterCategories,
   ] = useState<DrinksCategoriesType[]>([]);
 
+  const mealsOptions = ['Beef', 'Breakfast',
+    'Chicken', 'Dessert', 'Goat'];
+
   async function fetchMealCategories() {
-    if (buttonName) {
+    if (buttonName && mealsOptions.includes(buttonName)) {
       try {
         const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonName}`);
         const data = await response.json();
-        console.log(data);
 
         if (data && data.meals) {
           setMealFilterCategories(data.meals);
@@ -41,10 +43,11 @@ export function useFetchCategories() {
   }
 
   async function fetchDrinksCategories() {
-    if (buttonName) {
+    if (buttonName && !mealsOptions.includes(buttonName)) {
       try {
         const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${buttonName}`);
         const data = await response.json();
+
         if (data && data.drinks) {
           setDrinksFilterCategories(data.drinks);
         }
