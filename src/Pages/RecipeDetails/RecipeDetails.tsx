@@ -25,10 +25,10 @@ function RecipesDetails() {
 
   const [isMeal, setRecipeType] = useState(location.pathname.includes('meals'));
   const [details, setDetails] = useState<MealType[] | DrinksType[]>([]);
-  const {
-    localStorageValue: doneRecipe,
-    updateValue: setDoneRecipe,
-  } = useLocalStorage('doneRecipe', [] as any[]);
+  // const {
+  //   localStorageValue: doneRecipe,
+  //   updateValue: setDoneRecipe,
+  // } = useLocalStorage('doneRecipe', [] as any[]);
   const {
     localStorageValue: inProgressRecipes,
     updateValue: setInProgressRecipes,

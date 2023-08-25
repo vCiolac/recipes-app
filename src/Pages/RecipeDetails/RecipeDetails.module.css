@@ -38,7 +38,7 @@
 }
 
 .startRecipe {
-  position: fixed;
   bottom: 0px;
   left: 8.5rem;
+  position: fixed;
 }
