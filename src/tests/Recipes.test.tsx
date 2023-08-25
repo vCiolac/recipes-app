@@ -11,6 +11,7 @@ describe('Testando comportamento do Recipes', () => {
   });
   beforeEach(async () => {
     global.fetch = vi.fn().mockImplementation(mockFetch as any);
+    window.alert = vi.fn(() => {});
   });
 
   test('Testa se os botões de categoria estão aparecendo em meals', async () => {
