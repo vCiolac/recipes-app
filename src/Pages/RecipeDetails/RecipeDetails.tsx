@@ -8,7 +8,6 @@ import profileIcon from '../../images/profileIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import favoriteIcon from '../../images/favoriteIcon.png';
 import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
@@ -188,9 +187,13 @@ function RecipesDetails() {
       name: detailsMap[0].strMeal || detailsMap[0].strDrink,
       image: detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb,
     };
-    setFavoriteRecipes([...favoriteRecipes, newFavorite]);
+    if (favoriteRecipes.some((fav) => fav.id === recipeId)) {
+      const isAlreadyFav = favoriteRecipes.filter((fav) => fav.id !== recipeId);
+      setFavoriteRecipes(isAlreadyFav);
+    } else {
+      setFavoriteRecipes([...favoriteRecipes, newFavorite]);
+    }
   };
-
   const isFav = favoriteRecipes.some((recipe: any) => recipe.id === recipeId);
 
   if (loadingDetails) {
@@ -229,11 +232,13 @@ function RecipesDetails() {
 
         <button
           className={ styles.favBtn }
-          data-testid="favorite-btn"
           onClick={ handleFavoriteRecipe }
         >
-          <img src={ favoriteIcon } alt="Favorite Recipe" />
-          <img src={ !isFav ? whiteHeartIcon : blackHeartIcon } alt="Favorite Recipe" />
+          <img
+            data-testid="favorite-btn"
+            src={ !isFav ? whiteHeartIcon : blackHeartIcon }
+            alt="Favorite Recipe"
+          />
         </button>
       </div>
       <Footer setRecipeType={ setRecipeType } />
