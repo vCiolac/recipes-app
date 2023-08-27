@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import drikIcon from '../../images/drinkIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
-import style from '../../styles/footer.module.css';
+import style from './footer.module.css';
 import { Context } from '../../context/context';
 
 type RecipeTypeSelectorProps = {

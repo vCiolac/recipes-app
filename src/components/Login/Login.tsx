@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../Hooks/useLocalStorage';
+import styles from './Login.module.css';
+import loginRecipes from '../../images/loginLogoRecipesApp.png';
 
 function Login() {
   const [emails, setEmail] = useState('');
@@ -39,37 +41,47 @@ function Login() {
   };
 
   return (
-    <form>
-      <label htmlFor="email">
-        <input
-          onChange={ handleEmailChange }
-          data-testid="email-input"
-          type="text"
-          name="email"
-          id="email"
-          value={ emails }
-        />
-      </label>
-      <label htmlFor="password">
-        <input
-          onChange={ handlePasswordChange }
-          data-testid="password-input"
-          type="password"
-          name="password"
-          id="password"
-          value={ password }
-        />
-      </label>
-      <button
-        onClick={ handleSubmit }
-        disabled={ !isValidEmail || !isValidPassword }
-        data-testid="login-submit-btn"
-        type="submit"
-      >
-        Entrar
-
-      </button>
-    </form>
+    <main className={ styles.mainLogin }>
+      <div className={ styles.container1 }>
+        <img className={ styles.recipesLogo } src={ loginRecipes } alt="Recipes App" />
+      </div>
+      {/* <img className={ styles.tomatoPhoto } src={ tomate } alt="Tomato" /> */}
+      <div className={ styles.container2 }>
+        <form className={ styles.form }>
+          <h1>Login</h1>
+          <label htmlFor="email">
+            <input
+              placeholder="Email"
+              onChange={ handleEmailChange }
+              data-testid="email-input"
+              type="text"
+              name="email"
+              id="email"
+              value={ emails }
+            />
+          </label>
+          <label htmlFor="password">
+            <input
+              placeholder="Password"
+              onChange={ handlePasswordChange }
+              data-testid="password-input"
+              type="password"
+              name="password"
+              id="password"
+              value={ password }
+            />
+          </label>
+          <button
+            onClick={ handleSubmit }
+            disabled={ !isValidEmail || !isValidPassword }
+            data-testid="login-submit-btn"
+            type="submit"
+          >
+            Enter
+          </button>
+        </form>
+      </div>
+    </main>
   );
 }
 
