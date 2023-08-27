@@ -18,7 +18,7 @@ describe('Testando a tela de login', () => {
     renderWithRouter(<App />, { route: '/' });
     const emailInput = screen.getByRole('textbox');
     const passwordInput = screen.getByTestId('password-input');
-    const entrarButton = screen.getByRole('button', { name: 'Entrar' });
+    const entrarButton = screen.getByRole('button', { name: /enter/i });
 
     expect(emailInput).toBeInTheDocument();
     expect(emailInput).toHaveValue('');
@@ -31,7 +31,7 @@ describe('Testando a tela de login', () => {
 
     await userEvent.type(emailInput, 'teste@trybe.com');
     await userEvent.type(passwordInput, '1234abcd');
-    expect(screen.getByRole('button', { name: 'Entrar' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: /enter/i })).toBeEnabled();
     await userEvent.click(entrarButton);
   });
 });
