@@ -45,7 +45,6 @@ function Login() {
       <div className={ styles.container1 }>
         <img className={ styles.recipesLogo } src={ loginRecipes } alt="Recipes App" />
       </div>
-      {/* <img className={ styles.tomatoPhoto } src={ tomate } alt="Tomato" /> */}
       <div className={ styles.container2 }>
         <form className={ styles.form }>
           <h1>Login</h1>
