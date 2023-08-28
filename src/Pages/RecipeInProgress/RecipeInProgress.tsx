@@ -1,6 +1,6 @@
 import RecipesCard from '../../components/RecipesCard/RecipesCard';
 
-function RecipesInProgress() {
+function RecipeInProgress() {
   return (
     <div>
       <RecipesCard />
@@ -8,4 +8,4 @@ function RecipesInProgress() {
   );
 }
 
-export default RecipesInProgress;
+export default RecipeInProgress;

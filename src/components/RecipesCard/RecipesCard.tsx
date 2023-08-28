@@ -3,14 +3,23 @@ import { useLocation } from 'react-router-dom';
 import { Context } from '../../context/context';
 import shareIcon from '../../images/shareIcon.svg';
 import favoriteIcon from '../../images/favoriteIcon.png';
+import styles from './RecipesCard.module.css';
 
 function RecipesCard() {
   const { mealDetails, drinksDetails, loadingMeals } = useContext(Context);
   const location = useLocation();
   const isMeal: any = location.pathname.includes('meals') ? mealDetails : drinksDetails;
+
+  function handleChange(event: React.FormEvent<HTMLLabelElement>) {
+    const { className } = event.currentTarget;
+    event.currentTarget.className = className
+    === `${styles.recipeChecked}` ? '' : `${styles.recipeChecked}`;
+  }
+
   if (loadingMeals) {
     return <div>Loading...</div>;
   }
+
   return (
     <div>
       <img
@@ -31,11 +40,17 @@ function RecipesCard() {
          && ingredient !== undefined)
           .map((item, index) => (
             <label
+              className=""
               data-testid={ `${index}-ingredient-step` }
               key={ item }
               htmlFor={ item }
+              onChange={ (event) => handleChange(event) }
             >
-              <input key={ item } type="checkbox" id={ item } />
+              <input
+                key={ item }
+                type="checkbox"
+                id={ item }
+              />
               {item}
             </label>
           ))}
