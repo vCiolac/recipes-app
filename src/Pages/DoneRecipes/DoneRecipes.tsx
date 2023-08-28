@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import profileIcon from '../../images/profileIcon.svg';
 import doneIcon from '../../images/DoneIcon.png';
@@ -12,13 +13,11 @@ function DoneRecipes() {
     updateValue: setDoneRecipes,
   } = useLocalStorage('doneRecipes', [] as RecipeDoneType[]);
   const { clipboard } = navigator;
-  const recipeLink = `${window.location.origin}${window.location.pathname}`;
   const [sharedLink, setSharedLink] = useState(false);
-  const [allRecipes, setAllRecipes] = useState(true);
-  const [mealsRecipes, setMealsRecipes] = useState(false);
-  const [drinksRecipes, setDrinksRecipes] = useState(false);
+  const [filteredRecipes, setFilteredRecipes] = useState('all');
 
-  const handleSharedLink = () => {
+  const handleSharedLink = (id: string, type: string) => {
+    const recipeLink = `${window.location.origin}/${type}s/${id}`;
     clipboard.writeText(recipeLink).then(
       () => {
         setSharedLink(true);
@@ -28,24 +27,27 @@ function DoneRecipes() {
       },
     );
   };
-  console.log(doneRecipes[0]);
+
   const handleAll = () => {
-    setAllRecipes(true);
-    setMealsRecipes(false);
-    setDrinksRecipes(false);
+    setFilteredRecipes('all');
   };
   const handleMeal = () => {
-    setAllRecipes(false);
-    setMealsRecipes(true);
-    setDrinksRecipes(false);
+    setFilteredRecipes('meal');
   };
   const handleDrink = () => {
-    setAllRecipes(false);
-    setMealsRecipes(false);
-    setDrinksRecipes(true);
+    setFilteredRecipes('drink');
   };
-  const isMeal = doneRecipes.filter((recipe) => recipe.type === 'meal');
-  const isDrink = doneRecipes.filter((recipe) => recipe.type === 'drink');
+
+  const mealRecipes = doneRecipes.filter((recipe) => recipe.type === 'meal');
+  const drinkRecipes = doneRecipes.filter((recipe) => recipe.type === 'drink');
+
+  const getRecipes = () => {
+    if (filteredRecipes === 'all') return doneRecipes;
+    if (filteredRecipes === 'meal') return mealRecipes;
+    if (filteredRecipes === 'drink') return drinkRecipes;
+  };
+  const recipes = getRecipes();
+
   return (
     <div>
       <Header
@@ -58,48 +60,58 @@ function DoneRecipes() {
         data-testid="filter-by-all-btn"
       >
         All
-
       </button>
       <button
         onClick={ handleMeal }
         data-testid="filter-by-meal-btn"
       >
         Meals
-
       </button>
       <button
         onClick={ handleDrink }
         data-testid="filter-by-drink-btn"
       >
         Drinks
-
       </button>
-      {allRecipes
+      {doneRecipes
       && (
         <div>
-          {doneRecipes?.map((recipe: any, index: number) => (
+          {recipes?.map((recipe: any, index: number) => (
             <div
               key={ index }
               data-testid={ `${index}-recommendation-card` }
             >
-              <span data-testid={ `${index}-horizontal-name` }>
-                {recipe.name }
-              </span>
+              <NavLink to={ `/${recipe.type}s/${recipe.id}` }>
+                <span
+                  data-testid={ `${index}-horizontal-name` }
+                >
+                  {recipe.name }
+                </span>
+              </NavLink>
               <span data-testid={ `${index}-horizontal-top-text` }>
                 {recipe.nationality}
                 {' '}
                 -
                 {' '}
                 {recipe.category }
+                {recipe.alcoholicOrNot !== '' && ` - ${recipe.alcoholicOrNot}`}
               </span>
-              <img
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-              />
+              <NavLink to={ `/${recipe.type}s/${recipe.id}` }>
+                <img
+                  style={ { maxWidth: '100vw', maxHeight: '30vh' } }
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </NavLink>
               <button
-                onClick={ handleSharedLink }
+                onClick={ () => handleSharedLink(recipe.id, recipe.type) }
               >
+                {sharedLink
+                && (
+                  <span>
+                    Link copied!
+                  </span>)}
                 <img
                   src={ shareIcon }
                   alt="Share Recipe"
@@ -118,89 +130,6 @@ function DoneRecipes() {
                 {recipe.doneDate }
               </span>
               {' '}
-
-            </div>))}
-        </div>
-      )}
-      {mealsRecipes
-      && (
-        <div>
-          {isMeal?.map((recipe: any, index: number) => (
-            <div
-              key={ index }
-              data-testid={ `${index}-recommendation-card` }
-            >
-              <span data-testid={ `${index}-horizontal-name` }>
-                {recipe.name }
-              </span>
-              <span data-testid={ `${index}-horizontal-top-text` }>
-                {recipe.category }
-              </span>
-              <img
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-              />
-              <button
-                data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ handleSharedLink }
-              >
-                <img src={ shareIcon } alt="Share Recipe" />
-              </button>
-              {recipe.tags?.map((tag: any, i: number) => (
-                <span
-                  key={ i }
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                >
-                  {tag[i]}
-                </span>
-              ))}
-              <span data-testid={ `${index}-horizontal-done-date` }>
-                {recipe.doneDate }
-              </span>
-              {' '}
-
-            </div>))}
-        </div>
-      )}
-      {drinksRecipes
-      && (
-        <div>
-          {isDrink?.map((recipe: any, index: number) => (
-            <div
-              key={ index }
-              data-testid={ `${index}-recommendation-card` }
-            >
-              <span data-testid={ `${index}-horizontal-name` }>
-                {recipe.name }
-              </span>
-              <span data-testid={ `${index}-horizontal-top-text` }>
-                {recipe.category }
-              </span>
-              <img
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-              />
-              <button
-                data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ handleSharedLink }
-              >
-                <img src={ shareIcon } alt="Share Recipe" />
-              </button>
-              {recipe.tags?.map((tag: any, i: number) => (
-                <span
-                  key={ i }
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                >
-                  {tag[i]}
-                </span>
-              ))}
-              <span data-testid={ `${index}-horizontal-done-date` }>
-                {recipe.doneDate }
-              </span>
-              {' '}
-
             </div>))}
         </div>
       )}
