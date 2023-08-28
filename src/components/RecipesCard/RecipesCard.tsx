@@ -4,16 +4,27 @@ import { Context } from '../../context/context';
 import shareIcon from '../../images/shareIcon.svg';
 import favoriteIcon from '../../images/favoriteIcon.png';
 import styles from './RecipesCard.module.css';
+import useLocalStorage from '../../Hooks/useLocalStorage';
+import { InProgressType } from '../../types';
 
 function RecipesCard() {
   const { mealDetails, drinksDetails, loadingMeals } = useContext(Context);
   const location = useLocation();
   const isMeal: any = location.pathname.includes('meals') ? mealDetails : drinksDetails;
+  const { localStorageValue: localStorageChecked,
+    updateValue: setLocalStorageChecked,
+  } = useLocalStorage('inProgressRecipes', {} as InProgressType);
+  const pathname = location.pathname.split('/')[1] as 'meals' | 'drinks';
+  const idRecipe = location.pathname.split('/')[2];
 
   function handleChange(event: React.FormEvent<HTMLLabelElement>) {
-    const { className } = event.currentTarget;
-    event.currentTarget.className = className
-    === `${styles.recipeChecked}` ? '' : `${styles.recipeChecked}`;
+    const { htmlFor } = event.currentTarget;
+
+    const newCheckedRecipes = localStorageChecked[pathname][idRecipe].includes(htmlFor)
+      ? localStorageChecked[pathname][idRecipe].filter((item) => item !== htmlFor)
+      : [...localStorageChecked[pathname][idRecipe], htmlFor];
+    setLocalStorageChecked({ ...localStorageChecked,
+      [pathname]: { [idRecipe]: newCheckedRecipes } });
   }
 
   if (loadingMeals) {
@@ -40,7 +51,8 @@ function RecipesCard() {
          && ingredient !== undefined)
           .map((item, index) => (
             <label
-              className=""
+              className={ localStorageChecked[pathname][idRecipe].includes(item)
+                ? `${styles.recipeChecked}` : '' }
               data-testid={ `${index}-ingredient-step` }
               key={ item }
               htmlFor={ item }
@@ -50,6 +62,7 @@ function RecipesCard() {
                 key={ item }
                 type="checkbox"
                 id={ item }
+                checked={ localStorageChecked[pathname][idRecipe].includes(item) }
               />
               {item}
             </label>
