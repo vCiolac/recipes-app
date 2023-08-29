@@ -125,8 +125,8 @@ export interface RecipeDoneType {
   alcoholicOrNot: string;
   name: string;
   image: string;
-  doneDate: string;
-  tags: string[];
+  doneDate?: string;
+  tags?: string[];
 }
 
 export type InProgressType = {
