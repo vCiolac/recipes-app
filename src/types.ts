@@ -130,6 +130,11 @@ export interface RecipeDoneType {
 }
 
 export type InProgressType = {
-  meals: string[];
-  drinks: string[];
+  meals: Record<string, string[]>;
+  drinks: Record<string, string[]>;
+};
+
+export type UrlInfoType = {
+  pathname: 'meals' | 'drinks';
+  idRecipe: string;
 };
