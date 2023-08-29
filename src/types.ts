@@ -133,3 +133,8 @@ export type InProgressType = {
   meals: Record<string, string[]>;
   drinks: Record<string, string[]>;
 };
+
+export type UrlInfoType = {
+  pathname: 'meals' | 'drinks';
+  idRecipe: string;
+};

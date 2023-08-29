@@ -147,17 +147,6 @@ function RecipesDetails() {
 
   const handleStartRecipe = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    const ingredientList = Object.keys(detailsMap[0])
-      .filter((key) => key.startsWith('strIngredient'))
-      .map((key) => detailsMap[0][key])
-      .filter((ingredient) => ingredient !== null && ingredient !== '');
-
-    const inProgressRecipe = {
-      [isMeal ? 'meals' : 'drinks']: {
-        [recipeId]: ingredientList,
-      },
-    };
-    setInProgressRecipes({ ...inProgressRecipes, ...inProgressRecipe });
     navigate(`/${titleLow}/${recipeId}/in-progress`);
   };
 

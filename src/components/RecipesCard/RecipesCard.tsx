@@ -1,30 +1,66 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Context } from '../../context/context';
 import shareIcon from '../../images/shareIcon.svg';
 import favoriteIcon from '../../images/favoriteIcon.png';
 import styles from './RecipesCard.module.css';
 import useLocalStorage from '../../Hooks/useLocalStorage';
-import { InProgressType } from '../../types';
+import { InProgressType, UrlInfoType } from '../../types';
 
 function RecipesCard() {
+  const [urlInfo, setUrlInfo] = useState<UrlInfoType>({
+    pathname: 'meals',
+    idRecipe: '',
+  });
+  const { idRecipe, pathname } = urlInfo;
+  const [sharedLink, setSharedLink] = useState(false);
   const { mealDetails, drinksDetails, loadingMeals } = useContext(Context);
   const location = useLocation();
   const isMeal: any = location.pathname.includes('meals') ? mealDetails : drinksDetails;
   const { localStorageValue: localStorageChecked,
     updateValue: setLocalStorageChecked,
   } = useLocalStorage('inProgressRecipes', {} as InProgressType);
-  const pathname = location.pathname.split('/')[1] as 'meals' | 'drinks';
-  const idRecipe = location.pathname.split('/')[2];
+  const { clipboard } = navigator;
+  const recipeLink = `${window.location.origin}${window.location.pathname.slice(0, -12)}`;
 
-  function handleChange(event: React.FormEvent<HTMLLabelElement>) {
-    const { htmlFor } = event.currentTarget;
+  const handleSharedLink = () => {
+    clipboard.writeText(recipeLink).then(
+      () => {
+        setSharedLink(true);
+      },
+      () => {
+        console.error('Erro ao colar o link em seu clipboard');
+      },
+    );
+  };
 
-    const newCheckedRecipes = localStorageChecked[pathname][idRecipe].includes(htmlFor)
-      ? localStorageChecked[pathname][idRecipe].filter((item) => item !== htmlFor)
-      : [...localStorageChecked[pathname][idRecipe], htmlFor];
+  useEffect(() => {
+    const currPathname = location.pathname.split('/')[1] as 'meals' | 'drinks';
+    const currIdRecipe = location.pathname.split('/')[2];
+    setUrlInfo({ pathname: currPathname, idRecipe: currIdRecipe });
+
+    const storedValue = localStorage.getItem('inProgressRecipes');
+    if (!storedValue) {
+      setLocalStorageChecked({ ...localStorageChecked,
+        [currPathname]: { [currIdRecipe]: [] } });
+    } else if (!JSON.parse(storedValue)[currPathname]
+      || !JSON.parse(storedValue)[currPathname][currIdRecipe]) {
+      setLocalStorageChecked({ ...JSON.parse(storedValue),
+        [currPathname]: {
+          ...JSON.parse(storedValue)[currPathname],
+          [currIdRecipe]: [],
+        } });
+    }
+  }, [location.pathname]);
+
+  function handleChange(event: React.FormEvent<HTMLInputElement>) {
+    const { id } = event.currentTarget;
+
+    const newCheckedRecipes = localStorageChecked[pathname][idRecipe].includes(id)
+      ? localStorageChecked[pathname][idRecipe].filter((item) => item !== id)
+      : [...localStorageChecked[pathname][idRecipe], id];
     setLocalStorageChecked({ ...localStorageChecked,
-      [pathname]: { [idRecipe]: newCheckedRecipes } });
+      [pathname]: { ...localStorageChecked[pathname], [idRecipe]: newCheckedRecipes } });
   }
 
   if (loadingMeals) {
@@ -51,24 +87,27 @@ function RecipesCard() {
          && ingredient !== undefined)
           .map((item, index) => (
             <label
-              className={ localStorageChecked[pathname][idRecipe].includes(item)
+              className={ (localStorageChecked[pathname]
+                && localStorageChecked[pathname][idRecipe]?.includes(item))
                 ? `${styles.recipeChecked}` : '' }
               data-testid={ `${index}-ingredient-step` }
               key={ item }
               htmlFor={ item }
-              onChange={ (event) => handleChange(event) }
             >
               <input
+                onChange={ (event) => handleChange(event) }
                 key={ item }
                 type="checkbox"
                 id={ item }
-                checked={ localStorageChecked[pathname][idRecipe].includes(item) }
+                checked={ (localStorageChecked[pathname]
+                  ? localStorageChecked[pathname][idRecipe]?.includes(item) : false) }
               />
               {item}
             </label>
           ))}
       </div>
-      <button data-testid="share-btn">
+      {sharedLink && <span>Link copied!</span>}
+      <button data-testid="share-btn" onClick={ handleSharedLink }>
         <img src={ shareIcon } alt="Share Recipe" />
       </button>
       <button data-testid="favorite-btn">
