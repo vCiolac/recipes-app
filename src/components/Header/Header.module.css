@@ -1,0 +1,57 @@
+.headerContainer {
+  align-items: center;
+  background-color: #fcdc36;
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  width: auto;
+}
+
+.headerContainer nav {
+  display: flex;
+  gap: 16px;
+  margin-left: 16px;
+}
+
+.recipeImg {
+  margin: 6px 30px 6px 26px;
+}
+
+.nameLogoImg {
+  margin: 20px 68px 14px 0.1px;
+  width: 110px;
+}
+
+.searchSpyglass {
+  background-color: #fcdc36;
+  border: none;
+}
+
+.profileIcon {
+  border: none;
+}
+
+.divIconAndTitle {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.recipeIcon {
+  margin: 30px 160px 6px;
+  width: 40px;
+}
+
+.divIconAndTitle h1 {
+  color: #41197f;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 2.1px;
+  margin: 6px 106px 21px;
+  text-align: center;
+  text-transform: uppercase;
+}
