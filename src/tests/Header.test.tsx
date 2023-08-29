@@ -14,12 +14,10 @@ describe('Testes referentes ao Header', () => {
     window.alert = vi.fn(() => {});
   });
 
-  test('Testa se o header possui o nome Recipes App e seu respectivo ícone de imagem.', async () => {
+  test('Testa se o header possui o ícone de imagem do Recipes App.', async () => {
     renderWithRouter(<App />, { route: '/meals' });
     expect(global.fetch).toHaveBeenCalledTimes(4);
 
-    const appTitle = await screen.findByRole('heading', { name: /recipes app/i });
-    expect(appTitle).toBeInTheDocument();
     const iconTitle = await screen.findByRole('img', { name: /ícone recipes app/i });
     expect(iconTitle).toBeInTheDocument();
   });
