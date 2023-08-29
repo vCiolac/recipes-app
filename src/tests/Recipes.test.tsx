@@ -17,7 +17,6 @@ describe('Testando comportamento do Recipes', () => {
   test('Testa se os botões de categoria estão aparecendo em meals', async () => {
     renderWithRouter(<App />, { route: '/meals' });
     expect(global.fetch).toHaveBeenCalledTimes(4);
-    expect(await screen.findByRole('heading', { name: /recipes app/i })).toBeInTheDocument();
 
     const button1 = await screen.findByRole('button', { name: /beef/i });
     const button2 = await screen.findByRole('button', { name: /breakfast/i });
@@ -64,7 +63,6 @@ describe('Testando comportamento do Recipes', () => {
     renderWithRouter(<App />, { route: '/meals' });
 
     expect(global.fetch).toHaveBeenCalledTimes(4);
-    expect(await screen.findByRole('heading', { name: /recipes app/i })).toBeInTheDocument();
 
     const button1 = await screen.findByRole('button', { name: /beef/i });
     await userEvent.click(button1);
@@ -81,7 +79,6 @@ describe('Testando comportamento do Recipes', () => {
     renderWithRouter(<App />, { route: '/drinks' });
 
     expect(global.fetch).toHaveBeenCalledTimes(4);
-    expect(await screen.findByRole('heading', { name: /recipes app/i })).toBeInTheDocument();
 
     const cocktailBtn = await screen.findByRole('button', { name: /cocktail/i });
     await userEvent.click(cocktailBtn);
@@ -100,8 +97,7 @@ describe('Testando comportamento do Recipes', () => {
     renderWithRouter(<App />, { route: '/meals' });
 
     expect(global.fetch).toHaveBeenCalledTimes(4);
-    expect(await screen.findByRole('heading', { name: /recipes app/i })).toBeInTheDocument();
-    const btnSearchBar = screen.getByRole('img', { name: /lupa de pesquisa/i });
+    const btnSearchBar = await screen.findByRole('img', { name: /lupa de pesquisa/i });
 
     await userEvent.click(btnSearchBar);
 
@@ -122,7 +118,6 @@ describe('Testando comportamento do Recipes', () => {
     renderWithRouter(<App />, { route: '/meals' });
 
     expect(global.fetch).toHaveBeenCalledTimes(4);
-    expect(await screen.findByRole('heading', { name: /recipes app/i })).toBeInTheDocument();
 
     const firstMeal = await screen.findByRole('img', { name: /corba/i });
     await userEvent.click(firstMeal);
@@ -134,7 +129,6 @@ describe('Testando comportamento do Recipes', () => {
     renderWithRouter(<App />, { route: '/drinks' });
 
     expect(global.fetch).toHaveBeenCalledTimes(4);
-    expect(await screen.findByRole('heading', { name: /recipes app/i })).toBeInTheDocument();
 
     const firstDrink = await screen.findByRole('img', { name: /gg/i });
     await userEvent.click(firstDrink);

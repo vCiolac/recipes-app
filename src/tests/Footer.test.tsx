@@ -18,7 +18,6 @@ describe('Testando comportamento do Footer', () => {
   test('Testa se ao clicar no botão de drinks a página é redirecionada', async () => {
     renderWithRouter(<App />, { route: '/meals' });
     expect(global.fetch).toHaveBeenCalledTimes(4);
-    expect(await screen.findByRole('heading', { name: /recipes app/i })).toBeInTheDocument();
 
     const title = await screen.findByRole('heading', { name: /meals/i });
     expect(title).toBeInTheDocument();

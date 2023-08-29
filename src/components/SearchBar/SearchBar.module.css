@@ -31,9 +31,9 @@
   height: 88px;
   justify-content: center;
   margin: 0.1px 12px;
+  margin-bottom: 30px;
   padding: 10px 64px;
   width: 100%;
-  margin-bottom: 30px;
 }
 
 .filters label {
