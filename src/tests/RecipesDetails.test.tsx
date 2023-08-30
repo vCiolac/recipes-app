@@ -48,4 +48,17 @@ describe('Testando comportamento do Recipes Details', () => {
     const text = await screen.findByText(/link copied!/i);
     expect(text).toHaveTextContent('Link copied!');
   });
+
+  test('Testa se ao favoritar uma receita ela é adiciona ao LocalStorage.', async () => {
+    const mockFunc = vi.spyOn(Storage.prototype, 'setItem');
+
+    renderWithRouter(<App />, { route: path });
+    expect(global.fetch).toHaveBeenCalledTimes(5);
+
+    const favButton = await screen.findByRole('button', { name: /favorite recipe/i });
+    expect(favButton).toBeInTheDocument();
+    await userEvent.click(favButton);
+
+    expect(mockFunc).toHaveBeenCalled();
+  });
 });

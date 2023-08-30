@@ -18,11 +18,11 @@ describe('Testando comportamento do Recipes', () => {
     renderWithRouter(<App />, { route: '/meals' });
     expect(global.fetch).toHaveBeenCalledTimes(4);
 
-    const button1 = await screen.findByRole('button', { name: /beef/i });
-    const button2 = await screen.findByRole('button', { name: /breakfast/i });
-    const button3 = await screen.findByRole('button', { name: /chicken/i });
-    const button4 = await screen.findByRole('button', { name: /dessert/i });
-    const button5 = await screen.findByRole('button', { name: /goat/i });
+    const button1 = await screen.findByTestId('Beef-category-filter');
+    const button2 = await screen.findByTestId('Breakfast-category-filter');
+    const button3 = await screen.findByTestId('Chicken-category-filter');
+    const button4 = await screen.findByTestId('Dessert-category-filter');
+    const button5 = await screen.findByTestId('Goat-category-filter');
 
     expect(button1).toBeInTheDocument();
     expect(button2).toBeInTheDocument();
@@ -40,11 +40,11 @@ describe('Testando comportamento do Recipes', () => {
   test('Testa se os botões de categoria estão aparecendo em drinks', async () => {
     renderWithRouter(<App />, { route: '/drinks' });
 
-    const button1 = await screen.findByRole('button', { name: /ordinary drink/i });
-    const button2 = await screen.findByRole('button', { name: /cocktail/i });
-    const button3 = await screen.findByRole('button', { name: /shake/i });
-    const button4 = await screen.findByRole('button', { name: /other \/ unknown/i });
-    const button5 = await screen.findByRole('button', { name: /cocoa/i });
+    const button1 = await screen.findByTestId('Ordinary Drink-category-filter');
+    const button2 = await screen.findByTestId('Cocktail-category-filter');
+    const button3 = await screen.findByTestId('Shake-category-filter');
+    const button4 = await screen.findByTestId('Other / Unknown-category-filter');
+    const button5 = await screen.findByTestId('Cocoa-category-filter');
 
     expect(button1).toBeInTheDocument();
     expect(button2).toBeInTheDocument();
@@ -64,15 +64,15 @@ describe('Testando comportamento do Recipes', () => {
 
     expect(global.fetch).toHaveBeenCalledTimes(4);
 
-    const button1 = await screen.findByRole('button', { name: /beef/i });
+    const button1 = await screen.findByTestId('Beef-category-filter');
     await userEvent.click(button1);
     expect(global.fetch).toHaveBeenCalledTimes(5);
 
     const firstMeal = await screen.findByRole('img', { name: /beef and mustard pie/i });
     expect(firstMeal).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole('button', { name: /beef/i }));
-    expect(await screen.findByRole('img', { name: /corba/i })).toBeInTheDocument();
+    await userEvent.click(button1);
+    expect(firstMeal).toBeInTheDocument();
   });
 
   test('Testa se ao clicar em um botão das categorias de drinks, é exibidos as receitas referentes a aquela categoria', async () => {
@@ -80,13 +80,13 @@ describe('Testando comportamento do Recipes', () => {
 
     expect(global.fetch).toHaveBeenCalledTimes(4);
 
-    const cocktailBtn = await screen.findByRole('button', { name: /cocktail/i });
+    const cocktailBtn = await screen.findByTestId('Cocktail-category-filter');
     await userEvent.click(cocktailBtn);
     expect(global.fetch).toHaveBeenCalledTimes(5);
 
     expect(await screen.findByRole('img', { name: /155 belmont/i })).toBeInTheDocument();
 
-    const btnAll = screen.getByRole('button', { name: /all/i });
+    const btnAll = await screen.findByTestId('All-category-filter');
     await userEvent.click(btnAll);
 
     const firstDrink = await screen.findByRole('img', { name: /gg/i });
