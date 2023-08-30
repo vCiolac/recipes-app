@@ -7,6 +7,7 @@ import profileIcon from '../../images/profileIcon.png';
 import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
+import styles from './Recipes.module.css';
 
 function Recipes() {
   const {
@@ -80,49 +81,51 @@ function Recipes() {
         profileIcon={ profileIcon }
         iconTitle={ iconTitle }
       />
-      <div>
-        {fiveCategories?.map((category, index) => (
-          <button
-            key={ index }
-            data-testid={ `${category}-category-filter` }
-            onClick={ () => handleCategories(category) }
-          >
-            {category}
-          </button>
-        ))}
+      <div className={ styles.container }>
         <div>
-          <button
-            onClick={ () => setButtonName('') }
-            data-testid="All-category-filter"
-          >
-            All
-          </button>
-        </div>
-      </div>
-      <div className="cards">
-        {twelveRecipes?.map((recipe: any, index) => (
-          <div
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
-            className="recipe-card"
-          >
-            <span data-testid={ `${index}-card-name` }>
-              {recipe.strMeal || recipe.strDrink}
-            </span>
-            <NavLink
-              to={ isMeal ? `/meals/${recipe.idMeal} ` : `/drinks/${recipe.idDrink}` }
-              onClick={ () => setDetailId(isMeal ? recipe.idMeal : recipe.idDrink) }
+          {fiveCategories?.map((category, index) => (
+            <button
+              key={ index }
+              data-testid={ `${category}-category-filter` }
+              onClick={ () => handleCategories(category) }
             >
-              <img
-                src={ recipe.strMealThumb || recipe.strDrinkThumb }
-                alt={ recipe.strMeal || recipe.strDrink }
-                data-testid={ `${index}-card-img` }
-              />
-            </NavLink>
+              {category}
+            </button>
+          ))}
+          <div>
+            <button
+              onClick={ () => setButtonName('') }
+              data-testid="All-category-filter"
+            >
+              All
+            </button>
           </div>
-        ))}
+        </div>
+        <div className="cards">
+          {twelveRecipes?.map((recipe: any, index) => (
+            <div
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+              className="recipe-card"
+            >
+              <span data-testid={ `${index}-card-name` }>
+                {recipe.strMeal || recipe.strDrink}
+              </span>
+              <NavLink
+                to={ isMeal ? `/meals/${recipe.idMeal} ` : `/drinks/${recipe.idDrink}` }
+                onClick={ () => setDetailId(isMeal ? recipe.idMeal : recipe.idDrink) }
+              >
+                <img
+                  src={ recipe.strMealThumb || recipe.strDrinkThumb }
+                  alt={ recipe.strMeal || recipe.strDrink }
+                  data-testid={ `${index}-card-img` }
+                />
+              </NavLink>
+            </div>
+          ))}
+        </div>
+        <Footer setRecipeType={ setRecipeType } />
       </div>
-      <Footer setRecipeType={ setRecipeType } />
     </div>
   );
 }
