@@ -51,14 +51,30 @@ describe('Testando comportamento do Recipes Details', () => {
 
   test('Testa se ao favoritar uma receita ela é adiciona ao LocalStorage.', async () => {
     const mockFunc = vi.spyOn(Storage.prototype, 'setItem');
+    const obj = [
+      {
+        id: '52977',
+        type: 'meal',
+        nationality: 'Turkish',
+        category: 'Side',
+        alcoholicOrNot: '',
+        name: 'Corba',
+        image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+      },
+    ];
 
     renderWithRouter(<App />, { route: path });
     expect(global.fetch).toHaveBeenCalledTimes(5);
 
-    const favButton = await screen.findByRole('button', { name: /favorite recipe/i });
+    const favButton = await screen.findByTestId('favorite-btn');
     expect(favButton).toBeInTheDocument();
     await userEvent.click(favButton);
-
+    const favData = await JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+    expect(favData).toEqual(obj);
     expect(mockFunc).toHaveBeenCalled();
+
+    await userEvent.click(favButton);
+    const favData2 = await JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+    expect(favData2).toEqual([]);
   });
 });
