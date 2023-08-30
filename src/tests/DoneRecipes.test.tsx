@@ -1,9 +1,18 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 import { renderWithRouter } from './helpers/renderWithRouter';
 import App from '../App';
+import mockFetch from '../Mocks/mockFetch';
 
 describe('Testando a página de "Done Recipes"', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+  beforeEach(async () => {
+    global.fetch = vi.fn().mockImplementation(mockFetch as any);
+    window.alert = vi.fn(() => {});
+  });
   test('testando se os elementos são renderizados na tela', async () => {
     renderWithRouter(<App />, { route: '/done-recipes' });
 
