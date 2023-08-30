@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
-import drikIcon from '../../images/drinkIcon.svg';
-import mealIcon from '../../images/mealIcon.svg';
-import style from './footer.module.css';
+import drinkIcon from '../../images/drinkIcon.png';
+import mealIcon from '../../images/mealIcon.png';
+import styles from './footer.module.css';
 import { Context } from '../../context/context';
 
 type RecipeTypeSelectorProps = {
@@ -23,12 +23,12 @@ function Footer({ setRecipeType }: RecipeTypeSelectorProps) {
   };
 
   return (
-    <footer data-testid="footer" className={ style.footer }>
+    <footer data-testid="footer" className={ styles.footer }>
+      <NavLink to="/drinks" onClick={ handleClickDrink }>
+        <img src={ drinkIcon } alt="drink" data-testid="drinks-bottom-btn" />
+      </NavLink>
       <NavLink to="/meals" onClick={ handleClickMeal }>
         <img src={ mealIcon } alt="meal" data-testid="meals-bottom-btn" />
-      </NavLink>
-      <NavLink to="/drinks" onClick={ handleClickDrink }>
-        <img src={ drikIcon } alt="drink" data-testid="drinks-bottom-btn" />
       </NavLink>
 
     </footer>
