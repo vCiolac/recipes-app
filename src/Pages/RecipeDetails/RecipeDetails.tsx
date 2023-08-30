@@ -206,7 +206,7 @@ function RecipesDetails() {
           type="button"
           data-testid="start-recipe-btn"
           onClick={ handleStartRecipe }
-          disabled={ isInProgress }
+          // disabled={ isInProgress }
         >
           {handleButtonName}
         </button>
