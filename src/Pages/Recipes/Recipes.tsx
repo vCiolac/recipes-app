@@ -8,6 +8,18 @@ import plateIcon from '../../images/icone-prato.png';
 import drinkIcon from '../../images/icone-bebida.png';
 import Footer from '../../components/Footer/Footer';
 import styles from './Recipes.module.css';
+import allMealsImg from '../../images/ImagesPageRecipes/AllMeals.svg';
+import beefImg from '../../images/ImagesPageRecipes/beef.svg';
+import goatImg from '../../images/ImagesPageRecipes/goat.svg';
+import chickenImg from '../../images/ImagesPageRecipes/chicken.svg';
+import breakfastImg from '../../images/ImagesPageRecipes/breakfast.svg';
+import dessertImg from '../../images/ImagesPageRecipes/dessert.svg';
+import cocktailImg from '../../images/ImagesPageRecipes/cocktail.svg';
+import cocoaImg from '../../images/ImagesPageRecipes/cocoa.svg';
+import allDrinksImg from '../../images/ImagesPageRecipes/AllDrinks.svg';
+import shakeImg from '../../images/ImagesPageRecipes/shake.svg';
+import otherImg from '../../images/ImagesPageRecipes/other.svg';
+import ordinaryDrinkImg from '../../images/ImagesPageRecipes/OrdinaryDrink.svg';
 
 function Recipes() {
   const {
@@ -73,6 +85,19 @@ function Recipes() {
     return <div>Loading...</div>;
   }
 
+  const allCategoriesImgs = {
+    Beef: beefImg,
+    Goat: goatImg,
+    Chicken: chickenImg,
+    Breakfast: breakfastImg,
+    Dessert: dessertImg,
+    'Ordinary Drink': ordinaryDrinkImg,
+    Cocktail: cocktailImg,
+    Shake: shakeImg,
+    'Other / Unknown': otherImg,
+    Cocoa: cocoaImg,
+  };
+
   return (
     <div>
       <Header
@@ -81,25 +106,28 @@ function Recipes() {
         profileIcon={ profileIcon }
         iconTitle={ iconTitle }
       />
-      <div className={ styles.container }>
-        <div>
+      <div>
+        <div className={ styles.categories }>
+          <button
+            className={ styles.allBtn }
+            onClick={ () => setButtonName('') }
+            data-testid="All-category-filter"
+          >
+            <img src={ isMeal ? allMealsImg : allDrinksImg } alt="Recipes" />
+            All
+          </button>
           {fiveCategories?.map((category, index) => (
             <button
+              className={ styles.mapCategories }
               key={ index }
               data-testid={ `${category}-category-filter` }
               onClick={ () => handleCategories(category) }
             >
+              <img src={ allCategoriesImgs[category] } alt="Category" />
               {category}
             </button>
           ))}
-          <div>
-            <button
-              onClick={ () => setButtonName('') }
-              data-testid="All-category-filter"
-            >
-              All
-            </button>
-          </div>
+          <div />
         </div>
         <div className="cards">
           {twelveRecipes?.map((recipe: any, index) => (
