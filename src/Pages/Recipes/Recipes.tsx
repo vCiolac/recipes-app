@@ -129,16 +129,13 @@ function Recipes() {
           ))}
           <div />
         </div>
-        <div className="cards">
+        <div className={ styles.allCards }>
           {twelveRecipes?.map((recipe: any, index) => (
             <div
+              className={ styles.card }
               key={ index }
               data-testid={ `${index}-recipe-card` }
-              className="recipe-card"
             >
-              <span data-testid={ `${index}-card-name` }>
-                {recipe.strMeal || recipe.strDrink}
-              </span>
               <NavLink
                 to={ isMeal ? `/meals/${recipe.idMeal} ` : `/drinks/${recipe.idDrink}` }
                 onClick={ () => setDetailId(isMeal ? recipe.idMeal : recipe.idDrink) }
@@ -149,6 +146,9 @@ function Recipes() {
                   data-testid={ `${index}-card-img` }
                 />
               </NavLink>
+              <span data-testid={ `${index}-card-name` }>
+                {recipe.strMeal || recipe.strDrink}
+              </span>
             </div>
           ))}
         </div>
