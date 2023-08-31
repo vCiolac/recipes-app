@@ -39,9 +39,6 @@ function RecipesCard() {
       () => {
         setSharedLink(true);
       },
-      () => {
-        console.error('Erro ao colar o link em seu clipboard');
-      },
     );
   };
 
