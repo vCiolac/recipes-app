@@ -15,6 +15,7 @@ describe('Testes referentes à página de Receitas em Progresso', () => {
   });
 
   const path = '/meals/52977/in-progress';
+  const ingStep = '0-ingredient-step';
 
   test('Testa se a imagem, nome, ingredientes e descrição da receita estão presentes na tela', async () => {
     renderWithRouter(<App />, { route: path });
@@ -58,7 +59,7 @@ describe('Testes referentes à página de Receitas em Progresso', () => {
     };
     renderWithRouter(<App />, { route: path });
 
-    const lentilsInput = await screen.findByTestId('0-ingredient-step');
+    const lentilsInput = await screen.findByTestId(ingStep);
     await userEvent.click(lentilsInput);
 
     const localStorageDt = await JSON.parse(localStorage.getItem('inProgressRecipes') || '{}');
@@ -93,7 +94,7 @@ describe('Testes referentes à página de Receitas em Progresso', () => {
     };
     renderWithRouter(<App />, { route: path });
 
-    const lentilsInput = await screen.findByTestId('0-ingredient-step');
+    const lentilsInput = await screen.findByTestId(ingStep);
     await userEvent.click(lentilsInput);
     const localStgredt = await JSON.parse(localStorage.getItem('inProgressRecipes') || '{}');
     expect(localStgredt).toEqual(onlyWithOnion);
@@ -155,7 +156,7 @@ describe('Testes referentes à página de Receitas em Progresso', () => {
     renderWithRouter(<App />, { route: path });
     const doneBtn = await screen.findByTestId('finish-recipe-btn');
     expect(doneBtn).toBeInTheDocument();
-    const firstIng = await screen.findByTestId('0-ingredient-step');
+    const firstIng = await screen.findByTestId(ingStep);
     const thirdIng = await screen.findByTestId('2-ingredient-step');
     const fourthIng = await screen.findByTestId('3-ingredient-step');
     const fifthIng = await screen.findByTestId('4-ingredient-step');
@@ -184,7 +185,7 @@ describe('Testes referentes à página de Receitas em Progresso', () => {
 
     await userEvent.click(doneBtn);
     const localInprogress = await JSON.parse(localStorage.getItem('inProgressRecipes') || '{}');
-    expect(localInprogress).toHaveLength(13);
+    expect(Object.keys(localInprogress.meals['52977'])).toHaveLength(13);
     expect(localInprogress).toEqual(finishRecipe);
     expect(mockFunc).toHaveBeenCalled();
   });
