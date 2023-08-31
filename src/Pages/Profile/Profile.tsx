@@ -1,8 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
-import profileIcon from '../../images/profileIcon.svg';
+import profileIcon from '../../images/profileIcon.png';
 import useLocalStorage from '../../Hooks/useLocalStorage';
+import profileSvg from '../../images/profileIcon.svg';
+import styles from './Profile.module.css';
+import doneRecipes from '../../images/DoneRecipesButton.svg';
+import favoriteRecipes from '../../images/FavoriteRecipesButton.svg';
+import logout from '../../images/LogoutButton.svg';
 
 function Profile() {
   const {
@@ -28,28 +33,37 @@ function Profile() {
       <Header
         title="Profile"
         profileIcon={ profileIcon }
-        iconTitle={ profileIcon }
+        iconTitle={ profileSvg }
       />
-      <div>
+      <div className={ styles.container }>
         <h1 data-testid="profile-email">{ userEmail.email }</h1>
-        <button
-          onClick={ handleDoneRecipes }
-          data-testid="profile-done-btn"
-        >
-          Done Recipes
-        </button>
-        <button
-          onClick={ handleRecipesFavorite }
-          data-testid="profile-favorite-btn"
-        >
-          Favorite Recipes
-        </button>
-        <button
-          onClick={ handleLogout }
-          data-testid="profile-logout-btn"
-        >
-          Logout
-        </button>
+        <div>
+          <button
+            className={ styles.doneRecipesBtn }
+            onClick={ handleDoneRecipes }
+            data-testid="profile-done-btn"
+          >
+            <img src={ doneRecipes } alt="Done Recipes Button" />
+            Done Recipes
+          </button>
+          <hr />
+          <button
+            className={ styles.favoriteRecipesBtn }
+            onClick={ handleRecipesFavorite }
+            data-testid="profile-favorite-btn"
+          >
+            <img src={ favoriteRecipes } alt="Favorite Recipes Button" />
+            Favorite Recipes
+          </button>
+          <hr />
+          <button
+            onClick={ handleLogout }
+            data-testid="profile-logout-btn"
+          >
+            <img src={ logout } alt="Logout Button" />
+            Logout
+          </button>
+        </div>
         <Footer />
       </div>
     </>

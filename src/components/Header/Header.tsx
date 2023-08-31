@@ -15,8 +15,7 @@ function Header({ title,
   const [hideSearch, setHideSearch] = useState(false);
 
   return (
-
-    <main>
+    <section>
       <header className={ styles.headerContainer }>
         <img
           className={ styles.recipeImg }
@@ -59,7 +58,7 @@ function Header({ title,
       && (
         <SearchBar />
       )}
-    </main>
+    </section>
   );
 }
 

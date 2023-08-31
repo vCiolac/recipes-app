@@ -1,0 +1,35 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4.56rem;
+}
+
+.container h1 {
+  color: #1a1b1c;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.container button {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: #797d86;
+  display: flex;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  gap: 2.56rem;
+  letter-spacing: 0.03rem;
+  margin-bottom: 2rem;
+  text-transform: capitalize;
+  width: 100%;
+}
+
+hr {
+  margin-bottom: 1.5rem;
+}
