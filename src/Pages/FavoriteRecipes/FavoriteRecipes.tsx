@@ -33,8 +33,6 @@ function FavoriteRecipes() {
     );
   };
 
-  console.log(favoriteRecipes);
-
   const handleAll = () => {
     setFilteredRecipes('all');
   };
@@ -127,7 +125,6 @@ function FavoriteRecipes() {
                   {recipe.category}
                   {recipe.alcoholicOrNot !== '' && `- ${recipe.alcoholicOrNot}`}
                 </span>
-
                 <div>
                   <button
                     onClick={ () => handleSharedLink(recipe.id, recipe.type) }
