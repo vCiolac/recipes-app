@@ -2,9 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Context } from '../../context/context';
-import Header from '../../components/Header/Header';
-import searchIcon from '../../images/searchIcon.svg';
-import profileIcon from '../../images/profileIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -188,12 +185,6 @@ function RecipesDetails() {
 
   return (
     <div>
-      <Header
-        title={ headerTitle }
-        searchIcon={ searchIcon }
-        profileIcon={ profileIcon }
-        iconTitle={ iconTitle }
-      />
       <div className={ styles.details }>
         {renderDetailsSection(detailsMap, isMeal)}
         {renderIngredients(detailsMap)}

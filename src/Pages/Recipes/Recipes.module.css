@@ -46,6 +46,7 @@
   border-radius: 0.312rem;
   display: flex;
   flex-direction: column;
+  width: 10.2rem;
 }
 
 .card img {
@@ -60,4 +61,7 @@
   font-style: normal;
   font-weight: 400;
   margin: 0.63rem 0.1rem 0.58rem 0.92rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
