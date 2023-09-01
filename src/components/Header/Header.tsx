@@ -22,7 +22,11 @@ function Header({ title,
           src={ recipeAppIcon }
           alt="Ícone Recipes App"
         />
-        <img className={ styles.nameLogoImg } src={ nameLogo } alt="Recipes App" />
+        <img
+          className={ `${!searchIcon ? styles.noSearchIcon : styles.nameLogoImg}` }
+          src={ nameLogo }
+          alt="Recipes App"
+        />
 
         <nav>
           {searchIcon
