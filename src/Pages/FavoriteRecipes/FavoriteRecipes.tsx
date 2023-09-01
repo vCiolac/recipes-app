@@ -4,8 +4,8 @@ import Header from '../../components/Header/Header';
 import profileIcon from '../../images/profileIcon.png';
 import favoriteIcon from '../../images/favoriteIcon.png';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import goldenHeart from '../../images/Favorites/heart.svg';
-import shareIcon from '../../images/Favorites/Share.svg';
+import goldenHeart from '../../images/Favorites/blackHeartIcon.svg';
+import shareIcon from '../../images/Favorites/shareIcon.svg';
 import AllMeals from '../../images/Favorites/foods.svg';
 import AllDrinks from '../../images/Favorites/drinks.svg';
 import fastFood from '../../images/Favorites/All.svg';
@@ -70,7 +70,7 @@ function FavoriteRecipes() {
     <div>
       <div>
         <Header
-          title="Favorites"
+          title="Favorite Recipes"
           profileIcon={ profileIcon }
           iconTitle={ favoriteIcon }
         />
