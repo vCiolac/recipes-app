@@ -41,7 +41,6 @@
   flex-flow: nowrap;
   flex-direction: row-reverse;
   justify-content: flex-start;
-  /* width: 43vh; */
 }
 
 .card img {

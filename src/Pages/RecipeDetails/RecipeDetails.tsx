@@ -134,9 +134,7 @@ function RecipesDetails() {
     setDetails(isMeal ? mealDetails : drinksDetails);
   }, [isMeal, mealDetails, drinksDetails]);
 
-  const headerTitle = isMeal ? 'Meals' : 'Drinks';
   const titleLow = isMeal ? 'meals' : 'drinks';
-  const iconTitle = isMeal ? plateIcon : drinkIcon;
   const detailsMap: any = isMeal ? mealDetails : drinksDetails;
   const navigate = useNavigate();
   const sixRecipes = getSixRecipes(isMeal, mealInf, drinkInf);
