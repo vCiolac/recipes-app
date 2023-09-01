@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import recipeAppIcon from '../../images/ícone-Recipes-app.png';
+import recipeAppIcon from '../../images/ícone-Recipes-app.svg';
 import SearchBar from '../SearchBar/SearchBar';
 import { HeaderProps } from '../../types';
 import styles from './Header.module.css';
-import nameLogo from '../../images/logoName-Recipesapp.png';
+import nameLogo from '../../images/logoName-Recipesapp.svg';
 
 function Header({ title,
   searchIcon = undefined,
