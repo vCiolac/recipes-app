@@ -53,7 +53,7 @@ describe('Testes referentes à página de Receitas em Progresso', () => {
     const withLentis = {
       meals: {
         52977: [
-          'Lentils',
+          'Lentils - 1 cup ',
         ],
       },
     };
@@ -70,8 +70,8 @@ describe('Testes referentes à página de Receitas em Progresso', () => {
     const withLentisAndOnion = {
       meals: {
         52977: [
-          'Lentils',
-          'Onion',
+          'Lentils - 1 cup ',
+          'Onion - 1 large',
         ],
       },
     };
@@ -88,7 +88,7 @@ describe('Testes referentes à página de Receitas em Progresso', () => {
     const onlyWithOnion = {
       meals: {
         52977: [
-          'Onion',
+          'Onion - 1 large',
         ],
       },
     };

@@ -27,17 +27,25 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
         src={ detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb }
         alt={ detailsMap[0].strMeal || detailsMap[0].strDrink }
       />
-      <span data-testid="recipe-category">
+      <section data-testid="recipe-category">
+        <h3>Categorie</h3>
         {isMeal ? detailsMap[0].strCategory : detailsMap[0].strAlcoholic}
-      </span>
-      <p data-testid="instructions">{detailsMap[0].strInstructions}</p>
-      <iframe
-        title="video"
-        width="560"
-        height="315"
-        data-testid="video"
-        src={ detailsMap[0].strYoutube }
-      />
+      </section>
+      <section>
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{detailsMap[0].strInstructions}</p>
+      </section>
+      {detailsMap[0].strYoutube && (
+        <section>
+          <h3>Video</h3>
+          <iframe
+            title="video"
+            width="360"
+            data-testid="video"
+            src={ `http://www.youtube.com/embed/${detailsMap[0].strYoutube.slice(32)}` }
+          />
+        </section>
+      ) }
     </div>
   );
 }
@@ -45,34 +53,28 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
 function renderIngredients(detailsMap: any) {
   return (
     <div className="ingredients">
-      <div>
-        <h3>Ingredient</h3>
+      <h3>Ingredients</h3>
+      <ul>
         {Array.from({ length: 20 }, (_, ingIndex) => ingIndex + 1).map((num) => {
           const ingredient = detailsMap[0][`strIngredient${num}`];
-          if (ingredient) {
-            return (
-              <p key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
-                {ingredient}
-              </p>
-            );
-          }
-          return null;
-        })}
-      </div>
-      <div>
-        <h3>Measure</h3>
-        {Array.from({ length: 20 }, (_, ingIndex) => ingIndex + 1).map((num) => {
           const measure = detailsMap[0][`strMeasure${num}`];
-          if (measure) {
+          if (ingredient && measure) {
             return (
-              <p key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
-                {measure}
-              </p>
+              <li key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
+                {`${ingredient} - ${measure}`}
+              </li>
+            );
+          }
+          if (ingredient && !measure) {
+            return (
+              <li key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
+                {ingredient}
+              </li>
             );
           }
           return null;
         })}
-      </div>
+      </ul>
     </div>
   );
 }

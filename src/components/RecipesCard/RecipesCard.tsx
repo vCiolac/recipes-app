@@ -62,11 +62,12 @@ function RecipesCard() {
     if (isMeal[0]) {
       const newIngredientsList = Array
         .from({ length: 20 }, (value, ingIndex: any) => ingIndex + 1).map((num) => {
-          const allIngredients = isMeal[0][`strIngredient${num}`];
-          return allIngredients;
-        }).filter((ingredient) => ingredient !== ''
-       && ingredient !== null
-       && ingredient !== undefined);
+          const ingredients = isMeal[0][`strIngredient${num}`];
+          const measures = isMeal[0][`strMeasure${num}`];
+          if (ingredients && measures) return `${ingredients} - ${measures}`;
+          if (ingredients && !measures) return `${ingredients}`;
+          return '';
+        }).filter((ingredient) => ingredient.length > 1);
       setIngredientsList(newIngredientsList);
     }
   }, [location.pathname, isMeal]);
@@ -122,37 +123,72 @@ function RecipesCard() {
 
   return (
     <div>
+      <h1 data-testid="recipe-title">
+        {isMeal[0].strMeal
+         || isMeal[0].strDrink}
+      </h1>
       <img
         data-testid="recipe-photo"
         src={ isMeal[0].strMealThumb || isMeal[0].strDrinkThumb }
         alt={ isMeal[0].strMeal || isMeal[0].strDrink }
       />
-      <h1 data-testid="recipe-title">
-        {isMeal[0].strMeal
-         || isMeal[0].strDrink}
-      </h1>
+
+      <section data-testid="recipe-category">
+        <h3>Categorie</h3>
+        {pathname === 'meals' ? isMeal[0].strCategory : isMeal[0].strAlcoholic}
+      </section>
+
       <div>
-        {ingredientsList.map((item, index) => (
-          <label
-            className={ (localStorageChecked[pathname]
+        <h3>Ingredients</h3>
+        <ul className={ styles.ingredientsList }>
+          {ingredientsList.map((item, index) => (
+            <li key={ item }>
+              <label
+                className={ (localStorageChecked[pathname]
                 && localStorageChecked[pathname][idRecipe]?.includes(item))
-              ? `${styles.recipeChecked}` : '' }
-            data-testid={ `${index}-ingredient-step` }
-            key={ item }
-            htmlFor={ item }
-          >
-            <input
-              onChange={ (event) => handleChange(event) }
-              key={ item }
-              type="checkbox"
-              id={ item }
-              checked={ (localStorageChecked[pathname]
-                ? localStorageChecked[pathname][idRecipe]?.includes(item) : false) }
-            />
-            {item}
-          </label>
-        ))}
+                  ? `${styles.recipeChecked}` : '' }
+                data-testid={ `${index}-ingredient-step` }
+                htmlFor={ item }
+              >
+                <input
+                  onChange={ (event) => handleChange(event) }
+                  key={ item }
+                  type="checkbox"
+                  id={ item }
+                  checked={ (localStorageChecked[pathname]
+                    ? localStorageChecked[pathname][idRecipe]?.includes(item) : false) }
+                />
+                {item}
+              </label>
+            </li>
+          ))}
+        </ul>
       </div>
+
+      <section>
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{isMeal[0].strInstructions}</p>
+      </section>
+
+      {isMeal[0].strYoutube && (
+        <section>
+          <h3>Video</h3>
+          <iframe
+            title="video"
+            width="360"
+            data-testid="video"
+            src={ `http://www.youtube.com/embed/${isMeal[0].strYoutube.slice(32)}` }
+          />
+        </section>)}
+
+      <button
+        data-testid="finish-recipe-btn"
+        disabled={ ingredientsList.length
+          !== localStorageChecked[pathname]?.[idRecipe].length }
+        onClick={ handleDoneRecipe }
+      >
+        Finish Recipe
+      </button>
       {sharedLink && <span>Link copied!</span>}
 
       <button data-testid="share-btn" onClick={ handleSharedLink }>
@@ -165,21 +201,6 @@ function RecipesCard() {
           src={ !isFav ? whiteHeartIcon : blackHeartIcon }
           alt="Favorite Recipe"
         />
-      </button>
-
-      <span data-testid="recipe-category">
-        {isMeal[0].strCategory}
-      </span>
-
-      <p data-testid="instructions">{isMeal[0].strInstructions}</p>
-
-      <button
-        data-testid="finish-recipe-btn"
-        disabled={ ingredientsList.length
-          !== localStorageChecked[pathname]?.[idRecipe].length }
-        onClick={ handleDoneRecipe }
-      >
-        Finish Recipe
       </button>
     </div>
   );

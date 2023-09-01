@@ -95,3 +95,7 @@
   text-transform: uppercase;
   width: 276px;
 }
+
+.form button:disabled {
+  opacity: 0.5;
+}
