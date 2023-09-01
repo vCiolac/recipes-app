@@ -18,22 +18,34 @@ import {
 function renderDetailsSection(detailsMap: any, isMeal: boolean) {
   return (
     <div>
-      <h1 data-testid="recipe-title">
+      <h1
+        className={ styles.recipetitle }
+        data-testid="recipe-title"
+      >
         {detailsMap[0].strMeal || detailsMap[0].strDrink}
       </h1>
       <img
         data-testid="recipe-photo"
-        className="recipe-photo"
+        className={ styles.recipephoto }
         src={ detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb }
         alt={ detailsMap[0].strMeal || detailsMap[0].strDrink }
       />
-      <section data-testid="recipe-category">
+      <section
+        className="recipe-category"
+        data-testid="recipe-category"
+      >
         <h3>Categorie</h3>
         {isMeal ? detailsMap[0].strCategory : detailsMap[0].strAlcoholic}
       </section>
       <section>
         <h3>Instructions</h3>
-        <p data-testid="instructions">{detailsMap[0].strInstructions}</p>
+        <p
+          className="instructions"
+          data-testid="instructions"
+        >
+          {detailsMap[0].strInstructions}
+
+        </p>
       </section>
       {detailsMap[0].strYoutube && (
         <section>

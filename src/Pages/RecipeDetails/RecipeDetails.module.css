@@ -51,3 +51,43 @@
   position: relative;
   z-index: 1;
 }
+
+.recipephoto {
+  margin-left: 1rem;
+  max-height: 27vh;
+  width: 90vw;
+}
+
+.recipetitle {
+  color: pink;
+  font-size: 2.3rem;
+  font-style: normal;
+  font-weight: 500;
+  height: 3rem;
+  margin-left: 7rem;
+  text-align: center;
+  width: 147px;
+}
+
+.recipe-category h3 {
+  color: #1a1b1c;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  height: 21px;
+  left: 24.01px;
+  letter-spacing: 0;
+  line-height: 21px;
+  text-align: left;
+  top: 197px;
+  width: 142.8px;
+}
+
+.instructions p {
+  border-radius: 5.35px;
+  height: 448px;
+  left: 13px;
+  top: 392px;
+  width: 335px;
+
+}
