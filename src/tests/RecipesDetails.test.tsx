@@ -22,8 +22,7 @@ describe('Testando comportamento do Recipes Details', () => {
     expect(await screen.findByAltText('Corba')).toBeInTheDocument();
     expect(await screen.findByText(/Pick through your lentils for any foreign debris/i)).toBeInTheDocument();
     expect(await screen.findByTitle(/video/i)).toBeInTheDocument();
-    expect(await screen.findByRole('heading', { name: /ingredient/i })).toBeInTheDocument();
-    expect(await screen.findByRole('heading', { name: /Measure/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /ingredients/i })).toBeInTheDocument();
   });
 
   test('testa se ao clicar no botão "Start Recipe" é salvo no LocalStorage, ', async () => {

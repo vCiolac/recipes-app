@@ -1,3 +1,8 @@
 .recipeChecked {
   text-decoration: line-through solid black;
 }
+
+.ingredientsList {
+  list-style-type: none;
+  padding: 0;
+}
