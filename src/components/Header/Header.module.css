@@ -9,18 +9,24 @@
 
 .headerContainer nav {
   display: flex;
-  gap: 16px;
-  margin-left: 16px;
+  gap: 1rem;
+  margin-left: 1rem;
 }
 
 .recipeImg {
-  margin: 6px 30px 6px 26px;
+  margin: 0.375rem 0 0.375rem 1rem;
 }
 
 .nameLogoImg {
-  margin: 20px 68px 14px 0.1px;
-  width: 110px;
+  margin: 1.25rem 2.7rem 0.85rem 1.5rem;
+  width: 6.875rem;
 }
+
+.noSearchIcon {
+  margin: 1.25rem 5.7rem 0.85rem 1.5rem;
+  width: 6.875rem;
+}
+
 
 .searchSpyglass {
   background-color: #fcdc36;
@@ -29,7 +35,7 @@
 
 .profileIcon {
   border: none;
-  margin-left: 0.8rem;
+  margin-left: 0.05rem;
 }
 
 .divIconAndTitle {
@@ -42,17 +48,17 @@
 }
 
 .recipeIcon {
-  margin: 30px 160px 6px;
-  width: 40px;
+  margin: 1.875rem 10rem 0.375rem;
+  width: 2.5rem;
 }
 
 .divIconAndTitle h1 {
   color: #41197f;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 900;
-  letter-spacing: 2.1px;
-  margin: 6px 106px 21px;
+  letter-spacing: 0.135rem;
+  margin: 0.375rem 6.625rem 1.31rem;
   text-align: center;
   text-transform: uppercase;
 }

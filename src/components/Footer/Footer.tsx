@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
-import drinkIcon from '../../images/drinkIcon.png';
-import mealIcon from '../../images/mealIcon.png';
+import drinkIcon from '../../images/drinkIcon.svg';
+import mealIcon from '../../images/mealIcon.svg';
 import styles from './footer.module.css';
 import { Context } from '../../context/context';
 

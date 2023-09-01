@@ -86,57 +86,63 @@ function DoneRecipes() {
         {doneRecipes
       && (
         <div className={ styles.allCards }>
-          <div className={ styles.doneContainer }>
-            {recipes?.map((recipe: any, index: number) => (
+          {recipes?.map((recipe: any, index: number) => {
+            const hasTags = recipe.tags && recipe.tags.length > 0;
+            return (
               <div
                 className={ styles.card }
                 key={ index }
                 data-testid={ `${index}-recommendation-card` }
               >
-                <NavLink to={ `/${recipe.type}s/${recipe.id}` }>
-                  <span
-                    className={ styles.name }
-                    data-testid={ `${index}-horizontal-name` }
-                  >
-                    {recipe.name }
-                  </span>
-                </NavLink>
-                <span
-                  className={ styles.topText }
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  {recipe.nationality !== '' && `${recipe.nationality} - `}
-                  {recipe.category}
-                  {recipe.alcoholicOrNot !== '' && `- ${recipe.alcoholicOrNot}`}
-                </span>
                 <div>
-                  <button
-                    onClick={ () => handleSharedLink(recipe.id, recipe.type) }
+                  <NavLink to={ `/${recipe.type}s/${recipe.id}` }>
+                    <span
+                      className={ `${styles.name} ${hasTags ? '' : styles.NoTags}` }
+                      data-testid={ `${index}-horizontal-name` }
+                    >
+                      {recipe.name }
+                    </span>
+                  </NavLink>
+                  <span
+                    className={ `${styles.topText} ${hasTags ? '' : styles.NoTags}` }
+                    data-testid={ `${index}-horizontal-top-text` }
                   >
-                    {sharedLink
+                    {recipe.nationality !== '' && `${recipe.nationality} - `}
+                    {recipe.category}
+                    {recipe.alcoholicOrNot !== '' && `- ${recipe.alcoholicOrNot}`}
+                  </span>
+                  <div>
+                    <button
+                      className={ `${hasTags ? '' : styles.btnTags}` }
+                      onClick={ () => handleSharedLink(recipe.id, recipe.type) }
+                    >
+                      {sharedLink
                 && (
                   <span
-                    className={ styles.spans }
+                    className={ styles.datedone }
                   >
                     Link copied!
                   </span>)}
-                    <img
-                      src={ shareIcon }
-                      alt="Share Recipe"
-                      data-testid={ `${index}-horizontal-share-btn` }
-                    />
-                  </button>
-                  {recipe.tags?.map((tag: any, i: number) => (
-                    <span
-                      className={ styles.tagss }
-                      key={ i }
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                      <img
+                        src={ shareIcon }
+                        alt="Share Recipe"
+                        data-testid={ `${index}-horizontal-share-btn` }
+                      />
+                    </button>
+                  </div>
+                  <div className={ styles.tags }>
+                    {recipe.tags?.map((tag: any, i: number) => (
+                      <span
+                        className={ styles.tagss }
+                        key={ i }
+                        data-testid={ `${index}-${tag}-horizontal-tag` }
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                   <span
-                    className={ styles.spans }
+                    className={ `${styles.dateDone} ${hasTags ? '' : styles.NoTags}` }
                     data-testid={ `${index}-horizontal-done-date` }
                   >
                     {recipe.doneDate }
@@ -151,8 +157,9 @@ function DoneRecipes() {
                     data-testid={ `${index}-horizontal-image` }
                   />
                 </NavLink>
-              </div>))}
-          </div>
+              </div>
+            );
+          })}
         </div>
       )}
       </div>
