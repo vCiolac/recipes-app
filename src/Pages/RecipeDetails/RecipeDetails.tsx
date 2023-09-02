@@ -18,26 +18,37 @@ import {
 function renderDetailsSection(detailsMap: any, isMeal: boolean) {
   return (
     <div>
-      <h1 data-testid="recipe-title">
+      <h1
+        className={ styles.recipetitle }
+        data-testid="recipe-title"
+      >
         {detailsMap[0].strMeal || detailsMap[0].strDrink}
       </h1>
       <img
         data-testid="recipe-photo"
-        className="recipe-photo"
+        className={ styles.recipephoto }
         src={ detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb }
         alt={ detailsMap[0].strMeal || detailsMap[0].strDrink }
       />
-      <section data-testid="recipe-category">
+      <section
+        className={ styles.recipecategory }
+        data-testid="recipe-category"
+      >
         <h3>Categorie</h3>
         {isMeal ? detailsMap[0].strCategory : detailsMap[0].strAlcoholic}
       </section>
-      <section>
+      <section className={ styles.instructions }>
         <h3>Instructions</h3>
-        <p data-testid="instructions">{detailsMap[0].strInstructions}</p>
+        <p
+          data-testid="instructions"
+        >
+          {detailsMap[0].strInstructions}
+
+        </p>
       </section>
       {detailsMap[0].strYoutube && (
         <section>
-          <h3>Video</h3>
+          <h3 className={ styles.video }>Video</h3>
           <iframe
             title="video"
             width="360"
@@ -53,14 +64,18 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
 function renderIngredients(detailsMap: any) {
   return (
     <div className="ingredients">
-      <h3>Ingredients</h3>
+      <h3 className={ styles.ingredient }>Ingredients</h3>
       <ul>
         {Array.from({ length: 20 }, (_, ingIndex) => ingIndex + 1).map((num) => {
           const ingredient = detailsMap[0][`strIngredient${num}`];
           const measure = detailsMap[0][`strMeasure${num}`];
           if (ingredient && measure) {
             return (
-              <li key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
+              <li
+                className={ styles.list }
+                key={ num }
+                data-testid={ `${num - 1}-ingredient-name-and-measure` }
+              >
                 {`${ingredient} - ${measure}`}
               </li>
             );
@@ -212,6 +227,7 @@ function RecipesDetails() {
           onClick={ handleFavoriteRecipe }
         >
           <img
+            className={ styles.favoritebtn }
             data-testid="favorite-btn"
             src={ !isFav ? whiteHeartIcon : blackHeartIcon }
             alt="Favorite Recipe"

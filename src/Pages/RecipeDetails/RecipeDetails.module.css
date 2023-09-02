@@ -34,9 +34,18 @@
 }
 
 .startRecipe {
+  background-color: #fcc436;
+  border-radius: 0.5rem;
   bottom: 0%;
-  left: 8rem;
+  color: white;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  height: 3rem;
+  left: 6rem;
   position: fixed;
+  text-transform: uppercase;
+  width: 11rem;
   z-index: 1;
 }
 
@@ -47,7 +56,94 @@
 }
 
 .favBtn {
+  color: #fcc436;
   left: 15.5rem;
   position: relative;
   z-index: 1;
+}
+
+.recipephoto {
+  margin-left: 1rem;
+  max-height: 27vh;
+  width: 90vw;
+}
+
+.recipetitle {
+  color: #1a1b1c;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.recipecategory h3 {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.instructions h3 {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.instructions p {
+  color: #1a1b1c;
+  font-size: 1.1rem;
+  font-style: normal;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 1rem;
+  text-align: justify;
+}
+
+.video {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.ingredient {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.list {
+  color: #1a1b1c;
+  font-size: 1.1rem;
+  font-style: normal;
+  line-height: 0.8rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 1rem;
+  text-align: justify;
+}
+
+.favoritebtn {
+  border: 3px;
+  color: #fcc436;
+  height: 20.29px;
+  left: 307px;
+  top: 19px;
+  width: 22.88px;
 }
