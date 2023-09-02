@@ -40,7 +40,7 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
       <section>
         <h3>Instructions</h3>
         <p
-          /* lassName="instructions" */
+          className="instructions"
           data-testid="instructions"
         >
           {detailsMap[0].strInstructions}

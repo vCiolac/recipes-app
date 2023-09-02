@@ -68,20 +68,21 @@
 }
 
 .recipecategory h3 {
-  color: blue;
+  color: #1a1b1c;
   font-size: 1.5rem;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 550;
   margin-left: 0.5rem;
   margin-top: 1rem;
   text-align: left;
 }
 
-/* .instructions p {
+.instructions p {
   border-radius: 5.35px;
+  color: blue;
   height: 448px;
   left: 13px;
   top: 392px;
   width: 335px;
 
-} */
+}
