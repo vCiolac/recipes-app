@@ -4,8 +4,8 @@
 
 .ingredientsList {
   list-style-type: none;
-  padding: 0;
   margin-left: 0.5rem;
+  padding: 0;
 }
 
 .recipetitle {
@@ -19,17 +19,17 @@
 }
 
 .recipephotoContainer {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  height: 14rem;
-  width: 100%;
   background-color: #fcc436;
+  display: flex;
+  height: 14rem;
+  justify-content: center;
+  width: 100%;
 }
 
 .recipephoto {
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.75);
   width: 12rem;
-  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 
 .recipecategory h3 {
@@ -60,8 +60,8 @@
   color: #1a1b1c;
   font-size: 1.1rem;
   font-style: normal;
-  width: 21rem;
   text-align: justify;
+  width: 21rem;
 }
 
 .ingredient {
@@ -74,10 +74,10 @@
 }
 
 .instructionsParagraph {
-  width: 100%;
   display: flex;
-  margin-top: 1rem;
   justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
 }
 
 .video {
@@ -112,27 +112,27 @@
 }
 
 .buttonsContainer {
+  align-items: center;
   display: flex;
-  width: 100vw;
   height: 8rem;
   justify-content: space-evenly;
-  align-items: center;
+  width: 100vw;
 }
 
 .favBtn {
   background-color: #fcc436;
   border: 2px solid #c59a2d;
+  border-radius: 0.5rem;
   height: 4rem;
   width: 4rem;
-  border-radius: 0.5rem;
 }
 
 .shareBtn {
   background-color: #fcc436;
   border: 2px solid #c59a2d;
+  border-radius: 0.5rem;
   height: 4rem;
   width: 4rem;
-  border-radius: 0.5rem;
 }
 
 .sharedlink {
