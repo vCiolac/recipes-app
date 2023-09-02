@@ -3,20 +3,20 @@
   background-color: #fcdc36;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   height: auto;
+  justify-content: space-around;
   width: 100%;
 }
 
 .headerContainer nav {
   display: flex;
-  width: 5rem;
   justify-content: space-around;
+  width: 5rem;
 }
 
 .recipeIconDiv {
-  width: 5rem;
   text-align: center;
+  width: 5rem;
 }
 
 .recipeImg {
