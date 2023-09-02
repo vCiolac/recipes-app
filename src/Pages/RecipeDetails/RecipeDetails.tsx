@@ -37,10 +37,9 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
         <h3>Categorie</h3>
         {isMeal ? detailsMap[0].strCategory : detailsMap[0].strAlcoholic}
       </section>
-      <section>
+      <section className={ styles.instructions }>
         <h3>Instructions</h3>
         <p
-          className="instructions"
           data-testid="instructions"
         >
           {detailsMap[0].strInstructions}
@@ -49,7 +48,7 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
       </section>
       {detailsMap[0].strYoutube && (
         <section>
-          <h3>Video</h3>
+          <h3 className={ styles.video }>Video</h3>
           <iframe
             title="video"
             width="360"
@@ -65,14 +64,18 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
 function renderIngredients(detailsMap: any) {
   return (
     <div className="ingredients">
-      <h3>Ingredients</h3>
+      <h3 className={ styles.ingredient }>Ingredients</h3>
       <ul>
         {Array.from({ length: 20 }, (_, ingIndex) => ingIndex + 1).map((num) => {
           const ingredient = detailsMap[0][`strIngredient${num}`];
           const measure = detailsMap[0][`strMeasure${num}`];
           if (ingredient && measure) {
             return (
-              <li key={ num } data-testid={ `${num - 1}-ingredient-name-and-measure` }>
+              <li
+                className={ styles.list }
+                key={ num }
+                data-testid={ `${num - 1}-ingredient-name-and-measure` }
+              >
                 {`${ingredient} - ${measure}`}
               </li>
             );
@@ -226,6 +229,7 @@ function RecipesDetails() {
           onClick={ handleFavoriteRecipe }
         >
           <img
+            className={ styles.favoritebtn }
             data-testid="favorite-btn"
             src={ !isFav ? whiteHeartIcon : blackHeartIcon }
             alt="Favorite Recipe"
