@@ -31,7 +31,7 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
         alt={ detailsMap[0].strMeal || detailsMap[0].strDrink }
       />
       <section
-        className="recipe-category"
+        className={ styles.recipecategory }
         data-testid="recipe-category"
       >
         <h3>Categorie</h3>
@@ -40,7 +40,7 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
       <section>
         <h3>Instructions</h3>
         <p
-          className="instructions"
+          /* lassName="instructions" */
           data-testid="instructions"
         >
           {detailsMap[0].strInstructions}
