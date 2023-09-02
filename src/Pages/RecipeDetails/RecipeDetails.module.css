@@ -17,6 +17,8 @@
 }
 
 .itemCard {
+  display: flex;
+  flex-direction: column;
   min-height: 200px;
   min-width: 11rem;
   transition: transform 0.3s ease-in-out;
@@ -28,44 +30,53 @@
 
 .itemCard img {
   border-radius: 12px;
-  height: 90%;
+  height: 12rem;
   pointer-events: none;
-  width: 20vh;
+  width: 10rem;
 }
 
 .startRecipe {
   background-color: #fcc436;
   border-radius: 0.5rem;
-  bottom: 0%;
+  bottom: 0;
   color: white;
-  font-size: 1rem;
   font-style: normal;
   font-weight: 600;
   height: 3rem;
-  left: 6rem;
   position: fixed;
   text-transform: uppercase;
-  width: 11rem;
+  width: 7rem;
   z-index: 1;
 }
 
 .shareBtn {
-  left: 15.5rem;
-  position: relative;
-  z-index: 1;
+  background-color: #fcc436;
+  border: 2px solid #c59a2d;
+  border-radius: 0.5rem;
+  height: 4rem;
+  width: 4rem;
 }
 
 .favBtn {
-  color: #fcc436;
-  left: 15.5rem;
-  position: relative;
-  z-index: 1;
+  background-color: #fcc436;
+  border: 2px solid #c59a2d;
+  border-radius: 0.5rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.recipephotoContainer {
+  align-items: center;
+  background-color: #fcc436;
+  display: flex;
+  height: 14rem;
+  justify-content: center;
+  width: 100%;
 }
 
 .recipephoto {
-  margin-left: 1rem;
-  max-height: 27vh;
-  width: 90vw;
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.75);
+  width: 12rem;
 }
 
 .recipetitle {
@@ -88,6 +99,10 @@
   text-align: left;
 }
 
+.recipecategory p {
+  margin-left: 0.5rem;
+}
+
 .instructions h3 {
   color: #1a1b1c;
   font-size: 1.5rem;
@@ -102,10 +117,15 @@
   color: #1a1b1c;
   font-size: 1.1rem;
   font-style: normal;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  margin-top: 1rem;
   text-align: justify;
+  width: 21rem;
+}
+
+.instructionsParagraph {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
 }
 
 .video {
@@ -118,6 +138,11 @@
   text-align: left;
 }
 
+.videoContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .ingredient {
   color: #1a1b1c;
   font-size: 1.5rem;
@@ -125,7 +150,6 @@
   font-weight: 550;
   margin-left: 0.5rem;
   margin-top: 1rem;
-  text-align: left;
 }
 
 .list {
@@ -139,11 +163,11 @@
   text-align: justify;
 }
 
-.favoritebtn {
-  border: 3px;
-  color: #fcc436;
-  height: 20.29px;
-  left: 307px;
-  top: 19px;
-  width: 22.88px;
+.buttonsContainer {
+  align-items: center;
+  display: flex;
+  height: 8rem;
+  justify-content: space-evenly;
+  margin-bottom: 5rem;
+  width: 100vw;
 }

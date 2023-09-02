@@ -17,11 +17,13 @@ function Header({ title,
   return (
     <section>
       <header className={ styles.headerContainer }>
-        <img
-          className={ styles.recipeImg }
-          src={ recipeAppIcon }
-          alt="Ícone Recipes App"
-        />
+        <div className={ styles.recipeIconDiv }>
+          <img
+            className={ styles.recipeImg }
+            src={ recipeAppIcon }
+            alt="Ícone Recipes App"
+          />
+        </div>
         <img
           className={ `${!searchIcon ? styles.noSearchIcon : styles.nameLogoImg}` }
           src={ nameLogo }

@@ -4,5 +4,137 @@
 
 .ingredientsList {
   list-style-type: none;
+  margin-left: 0.5rem;
   padding: 0;
+}
+
+.recipetitle {
+  color: #1a1b1c;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.recipephotoContainer {
+  align-items: center;
+  background-color: #fcc436;
+  display: flex;
+  height: 14rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.recipephoto {
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.75);
+  width: 12rem;
+}
+
+.recipecategory h3 {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.recipecategory p {
+  margin-left: 0.5rem;
+}
+
+.instructions h3 {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.instructions p {
+  color: #1a1b1c;
+  font-size: 1.1rem;
+  font-style: normal;
+  text-align: justify;
+  width: 21rem;
+}
+
+.ingredient {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+}
+
+.instructionsParagraph {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.video {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.videoContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.finishRecipe {
+  background-color: #fcc436;
+  border: 2px solid #c59a2d;
+  border-radius: 0.5rem;
+  color: white;
+  font-style: normal;
+  font-weight: 600;
+  height: 4rem;
+  text-transform: uppercase;
+  width: 9rem;
+}
+
+.finishRecipe:disabled {
+  opacity: 0.7;
+}
+
+.buttonsContainer {
+  align-items: center;
+  display: flex;
+  height: 8rem;
+  justify-content: space-evenly;
+  width: 100vw;
+}
+
+.favBtn {
+  background-color: #fcc436;
+  border: 2px solid #c59a2d;
+  border-radius: 0.5rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.shareBtn {
+  background-color: #fcc436;
+  border: 2px solid #c59a2d;
+  border-radius: 0.5rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.sharedlink {
+  text-align: center;
 }

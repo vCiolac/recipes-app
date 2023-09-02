@@ -50,9 +50,9 @@
 }
 
 .card img {
-  border-radius: 0.29rem 0.29rem 0.01rem 0.01rem;
+  border-radius: 0.27rem 0.27rem 0.01rem 0.01rem;
   height: 8.428rem;
-  width: 10.209rem;
+  width: 100%;
 }
 
 .card span {
