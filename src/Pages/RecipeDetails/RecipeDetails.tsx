@@ -5,8 +5,6 @@ import { Context } from '../../context/context';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import plateIcon from '../../images/mealIcon.png';
-import drinkIcon from '../../images/drinkIcon.png';
 import Footer from '../../components/Footer/Footer';
 import { DrinksType, InProgressType, MealType } from '../../types';
 import styles from './RecipeDetails.module.css';
@@ -14,6 +12,7 @@ import useLocalStorage from '../../Hooks/useLocalStorage';
 import {
   getSixRecipes,
 } from '../../components/RecipesDetailsHelpers/RecipesDetailsHelpers';
+import Loading from '../../components/Loading/Loading';
 
 function renderDetailsSection(detailsMap: any, isMeal: boolean) {
   return (
@@ -24,37 +23,45 @@ function renderDetailsSection(detailsMap: any, isMeal: boolean) {
       >
         {detailsMap[0].strMeal || detailsMap[0].strDrink}
       </h1>
-      <img
-        data-testid="recipe-photo"
-        className={ styles.recipephoto }
-        src={ detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb }
-        alt={ detailsMap[0].strMeal || detailsMap[0].strDrink }
-      />
+      <div className={ styles.recipephotoContainer }>
+        <img
+          data-testid="recipe-photo"
+          className={ styles.recipephoto }
+          src={ detailsMap[0].strMealThumb || detailsMap[0].strDrinkThumb }
+          alt={ detailsMap[0].strMeal || detailsMap[0].strDrink }
+        />
+      </div>
       <section
         className={ styles.recipecategory }
         data-testid="recipe-category"
       >
         <h3>Categorie</h3>
-        {isMeal ? detailsMap[0].strCategory : detailsMap[0].strAlcoholic}
+        <p>
+          {isMeal ? detailsMap[0].strCategory : detailsMap[0].strAlcoholic}
+        </p>
       </section>
       <section className={ styles.instructions }>
         <h3>Instructions</h3>
-        <p
-          data-testid="instructions"
-        >
-          {detailsMap[0].strInstructions}
+        <div className={ styles.instructionsParagraph }>
+          <p
+            data-testid="instructions"
+          >
+            {detailsMap[0].strInstructions}
 
-        </p>
+          </p>
+        </div>
       </section>
       {detailsMap[0].strYoutube && (
         <section>
           <h3 className={ styles.video }>Video</h3>
-          <iframe
-            title="video"
-            width="360"
-            data-testid="video"
-            src={ `http://www.youtube.com/embed/${detailsMap[0].strYoutube.slice(32)}` }
-          />
+          <div className={ styles.videoContainer }>
+            <iframe
+              title="video"
+              width="360"
+              data-testid="video"
+              src={ `http://www.youtube.com/embed/${detailsMap[0].strYoutube.slice(32)}` }
+            />
+          </div>
         </section>
       ) }
     </div>
@@ -195,7 +202,7 @@ function RecipesDetails() {
   const isFav = favoriteRecipes.some((recipe: any) => recipe.id === recipeId);
 
   if (loadingDetails) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
@@ -204,35 +211,36 @@ function RecipesDetails() {
         {renderDetailsSection(detailsMap, isMeal)}
         {renderIngredients(detailsMap)}
         {renderCarousel(sixRecipes)}
-        <button
-          className={ styles.startRecipe }
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ handleStartRecipe }
-          // disabled={ isInProgress }
-        >
-          {handleButtonName}
-        </button>
-        {sharedLink && <span>Link copied!</span>}
-        <button
-          className={ styles.shareBtn }
-          data-testid="share-btn"
-          onClick={ handleSharedLink }
-        >
-          <img src={ shareIcon } alt="Share Recipe" />
-        </button>
+        <div className={ styles.buttonsContainer }>
+          <button
+            className={ styles.startRecipe }
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ handleStartRecipe }
+            // disabled={ isInProgress }
+          >
+            {handleButtonName}
+          </button>
+          {sharedLink && <span>Link copied!</span>}
+          <button
+            className={ styles.shareBtn }
+            data-testid="share-btn"
+            onClick={ handleSharedLink }
+          >
+            <img src={ shareIcon } alt="Share Recipe" />
+          </button>
 
-        <button
-          className={ styles.favBtn }
-          onClick={ handleFavoriteRecipe }
-        >
-          <img
-            className={ styles.favoritebtn }
-            data-testid="favorite-btn"
-            src={ !isFav ? whiteHeartIcon : blackHeartIcon }
-            alt="Favorite Recipe"
-          />
-        </button>
+          <button
+            className={ styles.favBtn }
+            onClick={ handleFavoriteRecipe }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ !isFav ? whiteHeartIcon : blackHeartIcon }
+              alt="Favorite Recipe"
+            />
+          </button>
+        </div>
       </div>
       <Footer setRecipeType={ setRecipeType } />
     </div>

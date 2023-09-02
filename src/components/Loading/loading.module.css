@@ -1,0 +1,18 @@
+.LoadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: #41197f;
+}
+
+.LoadingContainer h1 {
+  color: #fcdc36;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0.135rem;
+  text-align: center;
+  text-transform: uppercase;
+}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Header from '../../components/Header/Header';
-import profileIcon from '../../images/profileIcon.png';
+import profileIcon from '../../images/profileIconBlue.svg';
 import doneIcon from '../../images/DoneIcon.png';
 import AllMeals from '../../images/Favorites/foods.svg';
 import AllDrinks from '../../images/Favorites/drinks.svg';

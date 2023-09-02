@@ -7,6 +7,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import styles from './RecipesCard.module.css';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 import { InProgressType, RecipeDoneType, UrlInfoType } from '../../types';
+import Loading from '../Loading/Loading';
 
 function RecipesCard() {
   const [urlInfo, setUrlInfo] = useState<UrlInfoType>({
@@ -118,28 +119,34 @@ function RecipesCard() {
   };
 
   if (loadingMeals) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
     <div>
-      <h1 data-testid="recipe-title">
+      <h1 data-testid="recipe-title" className={ styles.recipetitle }>
         {isMeal[0].strMeal
          || isMeal[0].strDrink}
       </h1>
-      <img
-        data-testid="recipe-photo"
-        src={ isMeal[0].strMealThumb || isMeal[0].strDrinkThumb }
-        alt={ isMeal[0].strMeal || isMeal[0].strDrink }
-      />
-
-      <section data-testid="recipe-category">
+      <div className={ styles.recipephotoContainer }>
+        <img
+          className={ styles.recipephoto }
+          data-testid="recipe-photo"
+          src={ isMeal[0].strMealThumb || isMeal[0].strDrinkThumb }
+          alt={ isMeal[0].strMeal || isMeal[0].strDrink }
+        />
+      </div>
+      <section
+        className={ styles.recipecategory }
+        data-testid="recipe-category"
+      >
         <h3>Categorie</h3>
-        {pathname === 'meals' ? isMeal[0].strCategory : isMeal[0].strAlcoholic}
+        <p>
+          {pathname === 'meals' ? isMeal[0].strCategory : isMeal[0].strAlcoholic}
+        </p>
       </section>
-
       <div>
-        <h3>Ingredients</h3>
+        <h3 className={ styles.ingredient }>Ingredients</h3>
         <ul className={ styles.ingredientsList }>
           {ingredientsList.map((item, index) => (
             <li key={ item }>
@@ -158,50 +165,62 @@ function RecipesCard() {
                   checked={ (localStorageChecked[pathname]
                     ? localStorageChecked[pathname][idRecipe]?.includes(item) : false) }
                 />
+                {' '}
                 {item}
               </label>
             </li>
           ))}
         </ul>
       </div>
-
-      <section>
+      <section className={ styles.instructions }>
         <h3>Instructions</h3>
-        <p data-testid="instructions">{isMeal[0].strInstructions}</p>
+        <div className={ styles.instructionsParagraph }>
+          <p data-testid="instructions">{isMeal[0].strInstructions}</p>
+        </div>
       </section>
 
       {isMeal[0].strYoutube && (
         <section>
-          <h3>Video</h3>
-          <iframe
-            title="video"
-            width="360"
-            data-testid="video"
-            src={ `http://www.youtube.com/embed/${isMeal[0].strYoutube.slice(32)}` }
-          />
+          <h3 className={ styles.video }>Video</h3>
+          <div className={ styles.videoContainer }>
+            <iframe
+              title="video"
+              width="360"
+              data-testid="video"
+              src={ `http://www.youtube.com/embed/${isMeal[0].strYoutube.slice(32)}` }
+            />
+          </div>
         </section>)}
+      <div className={ styles.buttonsContainer }>
+        <button
+          data-testid="share-btn"
+          onClick={ handleSharedLink }
+          className={ styles.shareBtn }
+        >
+          <img src={ shareIcon } alt="Share Recipe" />
+        </button>
+        <button
+          data-testid="finish-recipe-btn"
+          disabled={ ingredientsList.length
+            !== localStorageChecked[pathname]?.[idRecipe].length }
+          onClick={ handleDoneRecipe }
+          className={ styles.finishRecipe }
+        >
+          Finish Recipe
+        </button>
 
-      <button
-        data-testid="finish-recipe-btn"
-        disabled={ ingredientsList.length
-          !== localStorageChecked[pathname]?.[idRecipe].length }
-        onClick={ handleDoneRecipe }
-      >
-        Finish Recipe
-      </button>
-      {sharedLink && <span>Link copied!</span>}
-
-      <button data-testid="share-btn" onClick={ handleSharedLink }>
-        <img src={ shareIcon } alt="Share Recipe" />
-      </button>
-
-      <button onClick={ handleFavoriteRecipe }>
-        <img
-          data-testid="favorite-btn"
-          src={ !isFav ? whiteHeartIcon : blackHeartIcon }
-          alt="Favorite Recipe"
-        />
-      </button>
+        <button
+          onClick={ handleFavoriteRecipe }
+          className={ styles.favBtn }
+        >
+          <img
+            data-testid="favorite-btn"
+            src={ !isFav ? whiteHeartIcon : blackHeartIcon }
+            alt="Favorite Recipe"
+          />
+        </button>
+      </div>
+      {sharedLink && <div className={ styles.sharedlink }><span>Link copied!</span></div>}
     </div>
   );
 }

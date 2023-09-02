@@ -5,4 +5,136 @@
 .ingredientsList {
   list-style-type: none;
   padding: 0;
+  margin-left: 0.5rem;
+}
+
+.recipetitle {
+  color: #1a1b1c;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.recipephotoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 14rem;
+  width: 100%;
+  background-color: #fcc436;
+}
+
+.recipephoto {
+  width: 12rem;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.recipecategory h3 {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.recipecategory p {
+  margin-left: 0.5rem;
+}
+
+.instructions h3 {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.instructions p {
+  color: #1a1b1c;
+  font-size: 1.1rem;
+  font-style: normal;
+  width: 21rem;
+  text-align: justify;
+}
+
+.ingredient {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+}
+
+.instructionsParagraph {
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.video {
+  color: #1a1b1c;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 550;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.videoContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.finishRecipe {
+  background-color: #fcc436;
+  border: 2px solid #c59a2d;
+  border-radius: 0.5rem;
+  color: white;
+  font-style: normal;
+  font-weight: 600;
+  height: 4rem;
+  text-transform: uppercase;
+  width: 9rem;
+}
+
+.finishRecipe:disabled {
+  opacity: 0.7;
+}
+
+.buttonsContainer {
+  display: flex;
+  width: 100vw;
+  height: 8rem;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.favBtn {
+  background-color: #fcc436;
+  border: 2px solid #c59a2d;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 0.5rem;
+}
+
+.shareBtn {
+  background-color: #fcc436;
+  border: 2px solid #c59a2d;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 0.5rem;
+}
+
+.sharedlink {
+  text-align: center;
 }

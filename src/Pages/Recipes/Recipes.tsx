@@ -3,7 +3,7 @@ import { useLocation, NavLink } from 'react-router-dom';
 import { Context } from '../../context/context';
 import Header from '../../components/Header/Header';
 import searchIcon from '../../images/searchIconBlue.svg';
-import profileIcon from '../../images/profileIcon.png';
+import profileIcon from '../../images/profileIconBlue.svg';
 import plateIcon from '../../images/mealIcon.svg';
 import drinkIcon from '../../images/drinkIcon.svg';
 import Footer from '../../components/Footer/Footer';
@@ -20,6 +20,7 @@ import allDrinksImg from '../../images/ImagesPageRecipes/AllDrinks.svg';
 import shakeImg from '../../images/ImagesPageRecipes/shake.svg';
 import otherImg from '../../images/ImagesPageRecipes/other.svg';
 import ordinaryDrinkImg from '../../images/ImagesPageRecipes/OrdinaryDrink.svg';
+import Loading from '../../components/Loading/Loading';
 
 function Recipes() {
   const {
@@ -82,7 +83,7 @@ function Recipes() {
   };
 
   if (loadingMeals || loadingDrink || loadingCategories) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   const allCategoriesImgs = {
